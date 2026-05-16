@@ -30,6 +30,7 @@ import datetime as dt
 import hashlib
 import json
 import os
+from platform import release
 import re
 from typing import Dict, List, Optional, Tuple, Any
 
@@ -78,31 +79,24 @@ def first_nonempty(*vals):
             return s
     return ""
 
-def extract_story_id(title: str, desc: str, extra: str = "") -> str:
-    """
-    Try to find a story identifier.
-    Common patterns:
-      - US12345678
-      - User Story 12345678
-      - 12345678 (if preceded by US)
-    """
-    blob = " ".join([title or "", desc or "", extra or ""])
-    # Prefer explicit "US" formats
-    m = re.search(r"\bUS\s*[-_ ]?\s*(\d{5,})\b", blob, flags=re.IGNORECASE)
-    if m:
-        return "US" + m.group(1)
 
-    # "User Story 123456"
-    m = re.search(r"\buser\s*story\s*[-_ ]?\s*(\d{5,})\b", blob, flags=re.IGNORECASE)
-    if m:
-        return "US" + m.group(1)
+def extract_story_and_release(title: str):
+    if not title:
+        return "", ""
 
-    # If nothing else, attempt any long ID-like number (last resort)
-    m = re.search(r"\b(\d{7,})\b", blob)
-    if m:
-        return "US" + m.group(1)
+    # Extract story ID (US12345678)
+    story_match = re.search(r"(US\s*[-_ ]?\d{5,})", title, re.IGNORECASE)
+    story_id = ""
+    if story_match:
+        story_id = story_match.group(1).replace(" ", "").replace("-", "").upper()
 
-    return ""
+    # Extract release (V20, V21...)
+    release_match = re.search(r"(V\d{1,3})", title, re.IGNORECASE)
+    release = ""
+    if release_match:
+        release = release_match.group(1).upper()
+
+    return story_id, release
 
 def extract_pr_number(pr_url: str) -> str:
     """
@@ -227,7 +221,7 @@ def find_sql_files(sql_root: str, keys: List[str]) -> List[str]:
                 continue
             full = os.path.join(root, fn)
             hay = (full + " " + fn).lower()
-            if any(k.lower() in hay for k in keys):
+            if any(k.lower() in hay for k in keys if k):
                 matches.append(full)
 
     # deterministic ordering
@@ -383,15 +377,15 @@ def master_rows_to_stories(df: pd.DataFrame) -> List[Dict[str, Any]]:
         prurl = first_nonempty(row.get(col_pr) if col_pr else None)
         given_id = first_nonempty(row.get(col_id) if col_id else None)
 
-        story_id = extract_story_id(title, desc, given_id)
+        story_id, release = extract_story_and_release(title)
         pr_num = extract_pr_number(prurl)
 
         if not any([title, desc, prurl, story_id]):
             continue
-
+  
         stories.append({
             "story_id": story_id,
-            "source_story_id_cell": given_id,
+            "release": release,
             "title": title,
             "description": desc,
             "pr": {
@@ -399,6 +393,7 @@ def master_rows_to_stories(df: pd.DataFrame) -> List[Dict[str, Any]]:
                 "number": pr_num
             }
         })
+
 
     return stories
 
@@ -470,26 +465,11 @@ def build_canonical(
         # Business highlights can be associated by story id appearing anywhere in row snapshot values
         matched_business = []
         for wb in business_inputs:
-            keep_sheets = []
-            for sh in wb.get("sheets", []):
-                hits = []
-                for h in sh.get("highlights", []):
-                    # search story_id digits in the row snapshot stringified
-                    blob = json.dumps(h.get("row_snapshot", {}), default=str)
-                    if story_id and story_id in blob:
-                        hits.append(h)
-                    elif story_id:
-                        digits = re.sub(r"\D", "", story_id)
-                        if digits and digits in blob:
-                            hits.append(h)
-                if hits:
-                    keep_sheets.append({"sheet": sh["sheet"], "highlights": hits, "highlights_count": len(hits)})
-            if keep_sheets:
-                matched_business.append({
-                    "workbook": wb.get("workbook"),
-                    "path": wb.get("path"),
-                    "sheets": keep_sheets
-                })
+            wb_name = wb.get("workbook", "").upper()
+
+            # Match based on release (V20, V21, etc.)
+            if release and release in wb_name:
+                matched_business.append(wb)
 
         canonical_stories.append({
             **s,
@@ -559,4 +539,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-``
+
