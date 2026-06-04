@@ -1,2 +1,7 @@
 pandas
 openpyxl
+azure-identity
+openai
+langchain-openai
+load-dotenv
+httpx
