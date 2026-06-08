@@ -1,0 +1,1077 @@
+{
+  "state_procedures": [
+    {
+      "state_name": "Florida",
+      "state_acronym": "FL",
+      "state_id": "FL",
+      "effective_date": 20171102,
+      "action": "ADD",
+      "procedures": [
+        {
+          "display_order": 1,
+          "pcode": 1,
+          "source_column": "procedure1"
+        },
+        {
+          "display_order": 2,
+          "pcode": 2,
+          "source_column": "procedure2"
+        },
+        {
+          "display_order": 3,
+          "pcode": 3,
+          "source_column": "procedure3"
+        },
+        {
+          "display_order": 4,
+          "pcode": 8,
+          "source_column": "procedure4"
+        },
+        {
+          "display_order": 5,
+          "pcode": 1002,
+          "source_column": "procedure5"
+        },
+        {
+          "display_order": 6,
+          "pcode": 68,
+          "source_column": "procedure6"
+        },
+        {
+          "display_order": 7,
+          "pcode": 55,
+          "source_column": "procedure7"
+        },
+        {
+          "display_order": 8,
+          "pcode": 67,
+          "source_column": "procedure8"
+        },
+        {
+          "display_order": 9,
+          "pcode": 200,
+          "source_column": "procedure9"
+        },
+        {
+          "display_order": 10,
+          "pcode": 4,
+          "source_column": "procedure10"
+        },
+        {
+          "display_order": 11,
+          "pcode": 204,
+          "source_column": "procedure11"
+        },
+        {
+          "display_order": 12,
+          "pcode": 202,
+          "source_column": "procedure12"
+        },
+        {
+          "display_order": 13,
+          "pcode": 300,
+          "source_column": "procedure13"
+        },
+        {
+          "display_order": 14,
+          "pcode": 301,
+          "source_column": "procedure14"
+        },
+        {
+          "display_order": 15,
+          "pcode": 310,
+          "source_column": "procedure15"
+        },
+        {
+          "display_order": 16,
+          "pcode": 1007,
+          "source_column": "procedure16"
+        },
+        {
+          "display_order": 17,
+          "pcode": 503,
+          "source_column": "procedure17"
+        },
+        {
+          "display_order": 18,
+          "pcode": 504,
+          "source_column": "procedure18"
+        },
+        {
+          "display_order": 19,
+          "pcode": 69,
+          "source_column": "procedure19"
+        },
+        {
+          "display_order": 20,
+          "pcode": 80,
+          "source_column": "procedure20"
+        },
+        {
+          "display_order": 21,
+          "pcode": 502,
+          "source_column": "procedure21"
+        },
+        {
+          "display_order": 22,
+          "pcode": 0,
+          "source_column": "procedure22"
+        },
+        {
+          "display_order": 23,
+          "pcode": 0,
+          "source_column": "procedure23"
+        },
+        {
+          "display_order": 24,
+          "pcode": 0,
+          "source_column": "procedure24"
+        },
+        {
+          "display_order": 25,
+          "pcode": 0,
+          "source_column": "procedure25"
+        },
+        {
+          "display_order": 26,
+          "pcode": 0,
+          "source_column": "procedure26"
+        },
+        {
+          "display_order": 27,
+          "pcode": 0,
+          "source_column": "procedure27"
+        },
+        {
+          "display_order": 28,
+          "pcode": 0,
+          "source_column": "procedure28"
+        },
+        {
+          "display_order": 29,
+          "pcode": 0,
+          "source_column": "procedure29"
+        },
+        {
+          "display_order": 30,
+          "pcode": 0,
+          "source_column": "procedure30"
+        },
+        {
+          "display_order": 31,
+          "pcode": 0,
+          "source_column": "procedure31"
+        },
+        {
+          "display_order": 32,
+          "pcode": 0,
+          "source_column": "procedure32"
+        },
+        {
+          "display_order": 33,
+          "pcode": 0,
+          "source_column": "procedure33"
+        },
+        {
+          "display_order": 34,
+          "pcode": 0,
+          "source_column": "procedure34"
+        },
+        {
+          "display_order": 35,
+          "pcode": 0,
+          "source_column": "procedure35"
+        },
+        {
+          "display_order": 36,
+          "pcode": 0,
+          "source_column": "procedure36"
+        },
+        {
+          "display_order": 37,
+          "pcode": 0,
+          "source_column": "procedure37"
+        },
+        {
+          "display_order": 38,
+          "pcode": 0,
+          "source_column": "procedure38"
+        },
+        {
+          "display_order": 39,
+          "pcode": 0,
+          "source_column": "procedure39"
+        },
+        {
+          "display_order": 40,
+          "pcode": 0,
+          "source_column": "procedure40"
+        },
+        {
+          "display_order": 41,
+          "pcode": 0,
+          "source_column": "procedure41"
+        },
+        {
+          "display_order": 42,
+          "pcode": 0,
+          "source_column": "procedure42"
+        },
+        {
+          "display_order": 43,
+          "pcode": 0,
+          "source_column": "procedure43"
+        },
+        {
+          "display_order": 44,
+          "pcode": 0,
+          "source_column": "procedure44"
+        },
+        {
+          "display_order": 45,
+          "pcode": 0,
+          "source_column": "procedure45"
+        },
+        {
+          "display_order": 46,
+          "pcode": 0,
+          "source_column": "procedure46"
+        },
+        {
+          "display_order": 47,
+          "pcode": 0,
+          "source_column": "procedure47"
+        },
+        {
+          "display_order": 48,
+          "pcode": 0,
+          "source_column": "procedure48"
+        },
+        {
+          "display_order": 49,
+          "pcode": 0,
+          "source_column": "procedure49"
+        },
+        {
+          "display_order": 50,
+          "pcode": 0,
+          "source_column": "procedure50"
+        }
+      ],
+      "source_file": "V2404.00 - New State Procedures addons and arrays for Florida APR-DRG (Medicaid APR Pro Pricer)_StateProcedures.xlsx"
+    },
+    {
+      "state_name": "Florida",
+      "state_acronym": "FL",
+      "state_id": "FL",
+      "effective_date": 20201001,
+      "action": "ADD",
+      "procedures": [
+        {
+          "display_order": 1,
+          "pcode": 1,
+          "source_column": "procedure1"
+        },
+        {
+          "display_order": 2,
+          "pcode": 2,
+          "source_column": "procedure2"
+        },
+        {
+          "display_order": 3,
+          "pcode": 3,
+          "source_column": "procedure3"
+        },
+        {
+          "display_order": 4,
+          "pcode": 8,
+          "source_column": "procedure4"
+        },
+        {
+          "display_order": 5,
+          "pcode": 1002,
+          "source_column": "procedure5"
+        },
+        {
+          "display_order": 6,
+          "pcode": 68,
+          "source_column": "procedure6"
+        },
+        {
+          "display_order": 7,
+          "pcode": 55,
+          "source_column": "procedure7"
+        },
+        {
+          "display_order": 8,
+          "pcode": 200,
+          "source_column": "procedure8"
+        },
+        {
+          "display_order": 9,
+          "pcode": 4,
+          "source_column": "procedure9"
+        },
+        {
+          "display_order": 10,
+          "pcode": 204,
+          "source_column": "procedure10"
+        },
+        {
+          "display_order": 11,
+          "pcode": 202,
+          "source_column": "procedure11"
+        },
+        {
+          "display_order": 12,
+          "pcode": 300,
+          "source_column": "procedure12"
+        },
+        {
+          "display_order": 13,
+          "pcode": 301,
+          "source_column": "procedure13"
+        },
+        {
+          "display_order": 14,
+          "pcode": 310,
+          "source_column": "procedure14"
+        },
+        {
+          "display_order": 15,
+          "pcode": 1007,
+          "source_column": "procedure15"
+        },
+        {
+          "display_order": 16,
+          "pcode": 503,
+          "source_column": "procedure16"
+        },
+        {
+          "display_order": 17,
+          "pcode": 504,
+          "source_column": "procedure17"
+        },
+        {
+          "display_order": 18,
+          "pcode": 69,
+          "source_column": "procedure18"
+        },
+        {
+          "display_order": 19,
+          "pcode": 80,
+          "source_column": "procedure19"
+        },
+        {
+          "display_order": 20,
+          "pcode": 502,
+          "source_column": "procedure20"
+        },
+        {
+          "display_order": 21,
+          "pcode": 0,
+          "source_column": "procedure21"
+        },
+        {
+          "display_order": 22,
+          "pcode": 0,
+          "source_column": "procedure22"
+        },
+        {
+          "display_order": 23,
+          "pcode": 0,
+          "source_column": "procedure23"
+        },
+        {
+          "display_order": 24,
+          "pcode": 0,
+          "source_column": "procedure24"
+        },
+        {
+          "display_order": 25,
+          "pcode": 0,
+          "source_column": "procedure25"
+        },
+        {
+          "display_order": 26,
+          "pcode": 0,
+          "source_column": "procedure26"
+        },
+        {
+          "display_order": 27,
+          "pcode": 0,
+          "source_column": "procedure27"
+        },
+        {
+          "display_order": 28,
+          "pcode": 0,
+          "source_column": "procedure28"
+        },
+        {
+          "display_order": 29,
+          "pcode": 0,
+          "source_column": "procedure29"
+        },
+        {
+          "display_order": 30,
+          "pcode": 0,
+          "source_column": "procedure30"
+        },
+        {
+          "display_order": 31,
+          "pcode": 0,
+          "source_column": "procedure31"
+        },
+        {
+          "display_order": 32,
+          "pcode": 0,
+          "source_column": "procedure32"
+        },
+        {
+          "display_order": 33,
+          "pcode": 0,
+          "source_column": "procedure33"
+        },
+        {
+          "display_order": 34,
+          "pcode": 0,
+          "source_column": "procedure34"
+        },
+        {
+          "display_order": 35,
+          "pcode": 0,
+          "source_column": "procedure35"
+        },
+        {
+          "display_order": 36,
+          "pcode": 0,
+          "source_column": "procedure36"
+        },
+        {
+          "display_order": 37,
+          "pcode": 0,
+          "source_column": "procedure37"
+        },
+        {
+          "display_order": 38,
+          "pcode": 0,
+          "source_column": "procedure38"
+        },
+        {
+          "display_order": 39,
+          "pcode": 0,
+          "source_column": "procedure39"
+        },
+        {
+          "display_order": 40,
+          "pcode": 0,
+          "source_column": "procedure40"
+        },
+        {
+          "display_order": 41,
+          "pcode": 0,
+          "source_column": "procedure41"
+        },
+        {
+          "display_order": 42,
+          "pcode": 0,
+          "source_column": "procedure42"
+        },
+        {
+          "display_order": 43,
+          "pcode": 0,
+          "source_column": "procedure43"
+        },
+        {
+          "display_order": 44,
+          "pcode": 0,
+          "source_column": "procedure44"
+        },
+        {
+          "display_order": 45,
+          "pcode": 0,
+          "source_column": "procedure45"
+        },
+        {
+          "display_order": 46,
+          "pcode": 0,
+          "source_column": "procedure46"
+        },
+        {
+          "display_order": 47,
+          "pcode": 0,
+          "source_column": "procedure47"
+        },
+        {
+          "display_order": 48,
+          "pcode": 0,
+          "source_column": "procedure48"
+        },
+        {
+          "display_order": 49,
+          "pcode": 0,
+          "source_column": "procedure49"
+        },
+        {
+          "display_order": 50,
+          "pcode": 0,
+          "source_column": "procedure50"
+        }
+      ],
+      "source_file": "V2404.00 - New State Procedures addons and arrays for Florida APR-DRG (Medicaid APR Pro Pricer)_StateProcedures.xlsx"
+    },
+    {
+      "state_name": "Florida",
+      "state_acronym": "FL",
+      "state_id": "FL",
+      "effective_date": 20220701,
+      "action": "ADD",
+      "procedures": [
+        {
+          "display_order": 1,
+          "pcode": 1,
+          "source_column": "procedure1"
+        },
+        {
+          "display_order": 2,
+          "pcode": 2,
+          "source_column": "procedure2"
+        },
+        {
+          "display_order": 3,
+          "pcode": 3,
+          "source_column": "procedure3"
+        },
+        {
+          "display_order": 4,
+          "pcode": 8,
+          "source_column": "procedure4"
+        },
+        {
+          "display_order": 5,
+          "pcode": 1002,
+          "source_column": "procedure5"
+        },
+        {
+          "display_order": 6,
+          "pcode": 68,
+          "source_column": "procedure6"
+        },
+        {
+          "display_order": 7,
+          "pcode": 55,
+          "source_column": "procedure7"
+        },
+        {
+          "display_order": 8,
+          "pcode": 67,
+          "source_column": "procedure8"
+        },
+        {
+          "display_order": 9,
+          "pcode": 200,
+          "source_column": "procedure9"
+        },
+        {
+          "display_order": 10,
+          "pcode": 4,
+          "source_column": "procedure10"
+        },
+        {
+          "display_order": 11,
+          "pcode": 204,
+          "source_column": "procedure11"
+        },
+        {
+          "display_order": 12,
+          "pcode": 202,
+          "source_column": "procedure12"
+        },
+        {
+          "display_order": 13,
+          "pcode": 300,
+          "source_column": "procedure13"
+        },
+        {
+          "display_order": 14,
+          "pcode": 301,
+          "source_column": "procedure14"
+        },
+        {
+          "display_order": 15,
+          "pcode": 310,
+          "source_column": "procedure15"
+        },
+        {
+          "display_order": 16,
+          "pcode": 1007,
+          "source_column": "procedure16"
+        },
+        {
+          "display_order": 17,
+          "pcode": 503,
+          "source_column": "procedure17"
+        },
+        {
+          "display_order": 18,
+          "pcode": 504,
+          "source_column": "procedure18"
+        },
+        {
+          "display_order": 19,
+          "pcode": 69,
+          "source_column": "procedure19"
+        },
+        {
+          "display_order": 20,
+          "pcode": 80,
+          "source_column": "procedure20"
+        },
+        {
+          "display_order": 21,
+          "pcode": 502,
+          "source_column": "procedure21"
+        },
+        {
+          "display_order": 22,
+          "pcode": 0,
+          "source_column": "procedure22"
+        },
+        {
+          "display_order": 23,
+          "pcode": 0,
+          "source_column": "procedure23"
+        },
+        {
+          "display_order": 24,
+          "pcode": 0,
+          "source_column": "procedure24"
+        },
+        {
+          "display_order": 25,
+          "pcode": 0,
+          "source_column": "procedure25"
+        },
+        {
+          "display_order": 26,
+          "pcode": 0,
+          "source_column": "procedure26"
+        },
+        {
+          "display_order": 27,
+          "pcode": 0,
+          "source_column": "procedure27"
+        },
+        {
+          "display_order": 28,
+          "pcode": 0,
+          "source_column": "procedure28"
+        },
+        {
+          "display_order": 29,
+          "pcode": 0,
+          "source_column": "procedure29"
+        },
+        {
+          "display_order": 30,
+          "pcode": 0,
+          "source_column": "procedure30"
+        },
+        {
+          "display_order": 31,
+          "pcode": 0,
+          "source_column": "procedure31"
+        },
+        {
+          "display_order": 32,
+          "pcode": 0,
+          "source_column": "procedure32"
+        },
+        {
+          "display_order": 33,
+          "pcode": 0,
+          "source_column": "procedure33"
+        },
+        {
+          "display_order": 34,
+          "pcode": 0,
+          "source_column": "procedure34"
+        },
+        {
+          "display_order": 35,
+          "pcode": 0,
+          "source_column": "procedure35"
+        },
+        {
+          "display_order": 36,
+          "pcode": 0,
+          "source_column": "procedure36"
+        },
+        {
+          "display_order": 37,
+          "pcode": 0,
+          "source_column": "procedure37"
+        },
+        {
+          "display_order": 38,
+          "pcode": 0,
+          "source_column": "procedure38"
+        },
+        {
+          "display_order": 39,
+          "pcode": 0,
+          "source_column": "procedure39"
+        },
+        {
+          "display_order": 40,
+          "pcode": 0,
+          "source_column": "procedure40"
+        },
+        {
+          "display_order": 41,
+          "pcode": 0,
+          "source_column": "procedure41"
+        },
+        {
+          "display_order": 42,
+          "pcode": 0,
+          "source_column": "procedure42"
+        },
+        {
+          "display_order": 43,
+          "pcode": 0,
+          "source_column": "procedure43"
+        },
+        {
+          "display_order": 44,
+          "pcode": 0,
+          "source_column": "procedure44"
+        },
+        {
+          "display_order": 45,
+          "pcode": 0,
+          "source_column": "procedure45"
+        },
+        {
+          "display_order": 46,
+          "pcode": 0,
+          "source_column": "procedure46"
+        },
+        {
+          "display_order": 47,
+          "pcode": 0,
+          "source_column": "procedure47"
+        },
+        {
+          "display_order": 48,
+          "pcode": 0,
+          "source_column": "procedure48"
+        },
+        {
+          "display_order": 49,
+          "pcode": 0,
+          "source_column": "procedure49"
+        },
+        {
+          "display_order": 50,
+          "pcode": 0,
+          "source_column": "procedure50"
+        }
+      ],
+      "source_file": "V2404.00 - New State Procedures addons and arrays for Florida APR-DRG (Medicaid APR Pro Pricer)_StateProcedures.xlsx"
+    },
+    {
+      "state_name": "Florida",
+      "state_acronym": "FL",
+      "state_id": "FL",
+      "effective_date": 20240101,
+      "action": "ADD",
+      "procedures": [
+        {
+          "display_order": 1,
+          "pcode": 1,
+          "source_column": "procedure1"
+        },
+        {
+          "display_order": 2,
+          "pcode": 2,
+          "source_column": "procedure2"
+        },
+        {
+          "display_order": 3,
+          "pcode": 3,
+          "source_column": "procedure3"
+        },
+        {
+          "display_order": 4,
+          "pcode": 8,
+          "source_column": "procedure4"
+        },
+        {
+          "display_order": 5,
+          "pcode": 1002,
+          "source_column": "procedure5"
+        },
+        {
+          "display_order": 6,
+          "pcode": 68,
+          "source_column": "procedure6"
+        },
+        {
+          "display_order": 7,
+          "pcode": 55,
+          "source_column": "procedure7"
+        },
+        {
+          "display_order": 8,
+          "pcode": 67,
+          "source_column": "procedure8"
+        },
+        {
+          "display_order": 9,
+          "pcode": 200,
+          "source_column": "procedure9"
+        },
+        {
+          "display_order": 10,
+          "pcode": 4,
+          "source_column": "procedure10"
+        },
+        {
+          "display_order": 11,
+          "pcode": 204,
+          "source_column": "procedure11"
+        },
+        {
+          "display_order": 12,
+          "pcode": 202,
+          "source_column": "procedure12"
+        },
+        {
+          "display_order": 13,
+          "pcode": 300,
+          "source_column": "procedure13"
+        },
+        {
+          "display_order": 14,
+          "pcode": 301,
+          "source_column": "procedure14"
+        },
+        {
+          "display_order": 15,
+          "pcode": 310,
+          "source_column": "procedure15"
+        },
+        {
+          "display_order": 16,
+          "pcode": 1007,
+          "source_column": "procedure16"
+        },
+        {
+          "display_order": 17,
+          "pcode": 1011,
+          "source_column": "procedure17"
+        },
+        {
+          "display_order": 18,
+          "pcode": 503,
+          "source_column": "procedure18"
+        },
+        {
+          "display_order": 19,
+          "pcode": 504,
+          "source_column": "procedure19"
+        },
+        {
+          "display_order": 20,
+          "pcode": 69,
+          "source_column": "procedure20"
+        },
+        {
+          "display_order": 21,
+          "pcode": 80,
+          "source_column": "procedure21"
+        },
+        {
+          "display_order": 22,
+          "pcode": 512,
+          "source_column": "procedure22"
+        },
+        {
+          "display_order": 23,
+          "pcode": 502,
+          "source_column": "procedure23"
+        },
+        {
+          "display_order": 24,
+          "pcode": 0,
+          "source_column": "procedure24"
+        },
+        {
+          "display_order": 25,
+          "pcode": 0,
+          "source_column": "procedure25"
+        },
+        {
+          "display_order": 26,
+          "pcode": 0,
+          "source_column": "procedure26"
+        },
+        {
+          "display_order": 27,
+          "pcode": 0,
+          "source_column": "procedure27"
+        },
+        {
+          "display_order": 28,
+          "pcode": 0,
+          "source_column": "procedure28"
+        },
+        {
+          "display_order": 29,
+          "pcode": 0,
+          "source_column": "procedure29"
+        },
+        {
+          "display_order": 30,
+          "pcode": 0,
+          "source_column": "procedure30"
+        },
+        {
+          "display_order": 31,
+          "pcode": 0,
+          "source_column": "procedure31"
+        },
+        {
+          "display_order": 32,
+          "pcode": 0,
+          "source_column": "procedure32"
+        },
+        {
+          "display_order": 33,
+          "pcode": 0,
+          "source_column": "procedure33"
+        },
+        {
+          "display_order": 34,
+          "pcode": 0,
+          "source_column": "procedure34"
+        },
+        {
+          "display_order": 35,
+          "pcode": 0,
+          "source_column": "procedure35"
+        },
+        {
+          "display_order": 36,
+          "pcode": 0,
+          "source_column": "procedure36"
+        },
+        {
+          "display_order": 37,
+          "pcode": 0,
+          "source_column": "procedure37"
+        },
+        {
+          "display_order": 38,
+          "pcode": 0,
+          "source_column": "procedure38"
+        },
+        {
+          "display_order": 39,
+          "pcode": 0,
+          "source_column": "procedure39"
+        },
+        {
+          "display_order": 40,
+          "pcode": 0,
+          "source_column": "procedure40"
+        },
+        {
+          "display_order": 41,
+          "pcode": 0,
+          "source_column": "procedure41"
+        },
+        {
+          "display_order": 42,
+          "pcode": 0,
+          "source_column": "procedure42"
+        },
+        {
+          "display_order": 43,
+          "pcode": 0,
+          "source_column": "procedure43"
+        },
+        {
+          "display_order": 44,
+          "pcode": 0,
+          "source_column": "procedure44"
+        },
+        {
+          "display_order": 45,
+          "pcode": 0,
+          "source_column": "procedure45"
+        },
+        {
+          "display_order": 46,
+          "pcode": 0,
+          "source_column": "procedure46"
+        },
+        {
+          "display_order": 47,
+          "pcode": 0,
+          "source_column": "procedure47"
+        },
+        {
+          "display_order": 48,
+          "pcode": 0,
+          "source_column": "procedure48"
+        },
+        {
+          "display_order": 49,
+          "pcode": 0,
+          "source_column": "procedure49"
+        },
+        {
+          "display_order": 50,
+          "pcode": 0,
+          "source_column": "procedure50"
+        }
+      ],
+      "source_file": "V2404.00 - New State Procedures addons and arrays for Florida APR-DRG (Medicaid APR Pro Pricer)_StateProcedures.xlsx"
+    }
+  ],
+  "procedure_variables": [
+    {
+      "action": "ADD",
+      "pdescription": {
+        "value": "Fee Rate Addon",
+        "updated": true
+      },
+      "pcode": {
+        "value": 512,
+        "updated": true
+      },
+      "variables": [],
+      "source_file": "V2404.00 - New State Procedures addons and arrays for Florida APR-DRG (Medicaid APR Pro Pricer)_VariablesforProcedures.xlsx"
+    },
+    {
+      "action": "ADD",
+      "pdescription": {
+        "value": "Find Fee Rate Addon (Genome Sequencing - Florida Medicaid)",
+        "updated": true
+      },
+      "pcode": {
+        "value": 1011,
+        "updated": true
+      },
+      "variables": [
+        {
+          "variable_name": "cut_age",
+          "updated": true
+        }
+      ],
+      "source_file": "V2404.00 - New State Procedures addons and arrays for Florida APR-DRG (Medicaid APR Pro Pricer)_VariablesforProcedures.xlsx"
+    }
+  ]
+}
