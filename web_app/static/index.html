@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel to SQL Converter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="file"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .file-upload-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+            margin-right: 10px;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 14px;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .file-list {
+            margin-top: 10px;
+        }
+
+        .file-item {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .jobs-list {
+            margin-top: 20px;
+        }
+
+        .job-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .job-id {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .job-details {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .job-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .badge-warning {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Excel to SQL Converter</h1>
+            <p>AI-powered automation for converting Excel changes into SQL scripts</p>
+        </div>
+
+        <div class="card">
+            <h2 style="margin-bottom: 20px;">Upload Excel Files</h2>
+
+            <div id="alertContainer"></div>
+
+            <form id="uploadForm">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="previousVersion">Previous Version *</label>
+                        <input type="text" id="previousVersion" name="previousVersion" 
+                               placeholder="e.g., V2605.00" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="newVersion">New Version *</label>
+                        <input type="text" id="newVersion" name="newVersion" 
+                               placeholder="e.g., V2606.00" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="storyId">Story ID (Optional)</label>
+                    <input type="text" id="storyId" name="storyId" 
+                           placeholder="e.g., US1234567">
+                </div>
+
+                <div class="form-group">
+                    <label for="files">Excel Files *</label>
+                    <input type="file" id="files" name="files" 
+                           accept=".xlsx,.xlsm" multiple required>
+                    <div id="fileList" class="file-list"></div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="uploadBtn">
+                    Upload & Process
+                </button>
+            </form>
+
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p>Processing your files...</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2>Recent Jobs</h2>
+                <button class="btn btn-secondary btn-sm" onclick="loadJobs()">
+                    🔄 Refresh
+                </button>
+            </div>
+            <div id="jobsList" class="jobs-list">
+                <p style="text-align: center; color: #666;">Loading jobs...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = '';
+
+        const uploadForm = document.getElementById('uploadForm');
+        const filesInput = document.getElementById('files');
+        const fileList = document.getElementById('fileList');
+        const loading = document.getElementById('loading');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const alertContainer = document.getElementById('alertContainer');
+        const jobsList = document.getElementById('jobsList');
+
+        filesInput.addEventListener('change', (e) => {
+            const files = Array.from(e.target.files);
+            fileList.innerHTML = '';
+
+            files.forEach(file => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.innerHTML = `
+                    <span>📄 ${file.name}</span>
+                    <span>${(file.size / 1024).toFixed(2)} KB</span>
+                `;
+                fileList.appendChild(fileItem);
+            });
+        });
+
+        uploadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData();
+            formData.append('previous_version', document.getElementById('previousVersion').value);
+            formData.append('new_version', document.getElementById('newVersion').value);
+
+            const storyId = document.getElementById('storyId').value;
+            if (storyId) {
+                formData.append('story_id', storyId);
+            }
+
+            const files = filesInput.files;
+            for (let i = 0; i < files.length; i++) {
+                formData.append('files', files[i]);
+            }
+
+            try {
+                loading.style.display = 'block';
+                uploadBtn.disabled = true;
+                clearAlerts();
+
+                const uploadResponse = await fetch(`${API_BASE}/api/upload`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const uploadResult = await uploadResponse.json();
+
+                if (!uploadResponse.ok) {
+                    throw new Error(uploadResult.detail || 'Upload failed');
+                }
+
+                showAlert('Files uploaded successfully! Processing...', 'success');
+
+                const processResponse = await fetch(`${API_BASE}/api/process/${uploadResult.job_id}`, {
+                    method: 'POST'
+                });
+
+                const processResult = await processResponse.json();
+
+                if (!processResponse.ok) {
+                    throw new Error(processResult.detail || 'Processing failed');
+                }
+
+                showAlert(
+                    `✅ Processing completed successfully!<br>
+                    State Procedures: ${processResult.summary.state_procedures_count}<br>
+                    Procedure Variables: ${processResult.summary.procedure_variables_count}`,
+                    'success'
+                );
+
+                uploadForm.reset();
+                fileList.innerHTML = '';
+                loadJobs();
+
+            } catch (error) {
+                showAlert(`❌ Error: ${error.message}`, 'error');
+            } finally {
+                loading.style.display = 'none';
+                uploadBtn.disabled = false;
+            }
+        });
+
+        async function loadJobs() {
+            try {
+                const response = await fetch(`${API_BASE}/api/jobs`);
+                const data = await response.json();
+
+                if (data.jobs.length === 0) {
+                    jobsList.innerHTML = '<p style="text-align: center; color: #666;">No jobs found</p>';
+                    return;
+                }
+
+                jobsList.innerHTML = '';
+
+                data.jobs.forEach(job => {
+                    const jobCard = document.createElement('div');
+                    jobCard.className = 'job-card';
+
+                    const processedBadge = job.processed 
+                        ? '<span class="badge badge-success">Processed</span>'
+                        : '<span class="badge badge-warning">Pending</span>';
+
+                    jobCard.innerHTML = `
+                        <div class="job-header">
+                            <span class="job-id">${job.job_id}</span>
+                            ${processedBadge}
+                        </div>
+                        <div class="job-details">
+                            <div><strong>Versions:</strong> ${job.previous_version} → ${job.new_version}</div>
+                            ${job.story_id ? `<div><strong>Story ID:</strong> ${job.story_id}</div>` : ''}
+                            <div><strong>Files:</strong> ${job.uploaded_files.length}</div>
+                            <div><strong>Created:</strong> ${new Date(job.timestamp.replace(/_/g, '')).toLocaleString()}</div>
+                            ${job.result_summary ? `
+                                <div><strong>Results:</strong> 
+                                    ${job.result_summary.state_procedures_count} state procedures, 
+                                    ${job.result_summary.procedure_variables_count} procedure variables
+                                </div>
+                            ` : ''}
+                        </div>
+                        <div class="job-actions">
+                            ${job.processed ? `
+                                <button class="btn btn-success btn-sm" onclick="downloadJob('${job.job_id}')">
+                                    ⬇️ Download JSON
+                                </button>
+                            ` : `
+                                <button class="btn btn-secondary btn-sm" onclick="processJob('${job.job_id}')">
+                                    ▶️ Process Now
+                                </button>
+                            `}
+                            <button class="btn btn-danger btn-sm" onclick="deleteJob('${job.job_id}')">
+                                🗑️ Delete
+                            </button>
+                        </div>
+                    `;
+
+                    jobsList.appendChild(jobCard);
+                });
+
+            } catch (error) {
+                jobsList.innerHTML = `<p style="text-align: center; color: #dc3545;">Error loading jobs: ${error.message}</p>`;
+            }
+        }
+
+        async function processJob(jobId) {
+            try {
+                showAlert('Processing job...', 'info');
+
+                const response = await fetch(`${API_BASE}/api/process/${jobId}`, {
+                    method: 'POST'
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.detail || 'Processing failed');
+                }
+
+                showAlert('✅ Job processed successfully!', 'success');
+                loadJobs();
+
+            } catch (error) {
+                showAlert(`❌ Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function downloadJob(jobId) {
+            window.location.href = `${API_BASE}/api/download/${jobId}`;
+        }
+
+        async function deleteJob(jobId) {
+            if (!confirm('Are you sure you want to delete this job?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/api/job/${jobId}`, {
+                    method: 'DELETE'
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.detail || 'Delete failed');
+                }
+
+                showAlert('✅ Job deleted successfully!', 'success');
+                loadJobs();
+
+            } catch (error) {
+                showAlert(`❌ Error: ${error.message}`, 'error');
+            }
+        }
+
+        function showAlert(message, type) {
+            const alertClass = type === 'success' ? 'alert-success' : 
+                              type === 'error' ? 'alert-error' : 'alert-info';
+
+            const alert = document.createElement('div');
+            alert.className = `alert ${alertClass}`;
+            alert.innerHTML = message;
+
+            alertContainer.innerHTML = '';
+            alertContainer.appendChild(alert);
+
+            if (type === 'success' || type === 'info') {
+                setTimeout(() => {
+                    alert.remove();
+                }, 5000);
+            }
+        }
+
+        function clearAlerts() {
+            alertContainer.innerHTML = '';
+        }
+
+        loadJobs();
+    </script>
+</body>
+</html>

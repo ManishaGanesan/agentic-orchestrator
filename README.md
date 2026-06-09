@@ -1,4 +1,4 @@
-This repo has 2 major components:
+This repo has 3 major components:
 
 1. Dataset Builder
    - Converts regulatory Excel → structured JSON
@@ -9,7 +9,39 @@ This repo has 2 major components:
    - Produces audit logs
    - Prepares PR artifacts
 
-## Run steps 
+3. Web Application (NEW!)
+   - FastAPI-based web interface
+   - Upload Excel files via browser
+   - Process and download results
+   - Job management and tracking
+
+## Quick Start - Web Application 🚀
+
+1. **Setup environment** (if not already done):
+    ```powershell
+    py -3 -m venv .venv
+    .\.venv\Scripts\Activate.ps1
+    python -m pip install -r requirements.txt
+    ```
+
+2. **Start the web application**:
+    ```powershell
+    .\web_app\start.ps1
+    # OR
+    python web_app/main.py
+    ```
+
+3. **Open in browser**: http://localhost:8000
+
+4. **Upload and process**:
+   - Enter previous/new versions
+   - Select Excel file(s)
+   - Click "Upload & Process"
+   - Download results
+
+📚 See [web_app/README.md](web_app/README.md) for detailed documentation.
+
+## Run steps (Command Line)
 Use the Windows Python launcher py to build a venv
 1. create venv using the system Python (py chooses an installed Python 3)
     - py -3 -m venv .venv
