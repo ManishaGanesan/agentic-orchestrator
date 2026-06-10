@@ -6,9 +6,8 @@ from dotenv import load_dotenv
 import os
 
 # Load .env from project root explicitly
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 ENV_PATH = os.path.join(BASE_DIR, ".env")
-
 load_dotenv(dotenv_path=ENV_PATH)
 
 
@@ -64,7 +63,7 @@ def get_client():
     return client
 
 
-def call_llm(messages, temperature=0):
+def call_llm(messages, temperature=0, max_tokens=200):
     """
     Generic function to call GPT model
     """
@@ -74,6 +73,8 @@ def call_llm(messages, temperature=0):
         model="gpt-4.1",
         messages=messages,
         temperature=temperature,
+        max_tokens=max_tokens
+
     )
     # Just to see the full response for debugging - can remove later
     print(response.model_dump_json(indent=2))

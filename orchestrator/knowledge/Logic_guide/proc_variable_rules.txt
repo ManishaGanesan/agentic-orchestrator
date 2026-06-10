@@ -1,0 +1,11 @@
+Procedure Variable Rules
+
+1. For each procedure_variables entry:
+   - ADD: pcode must not already exist for LUTPTID.
+   - UPDATE: pcode must already exist for LUTPTID.
+
+2. Insert or update procedure rows using pdescription and pcode.
+
+3. For each variable_name:
+   - Resolve LUTPTVID from LUT_PricerTypeVariable.
+   - Insert ProcedureVariable mapping using LUTPID + LUTPTVID.

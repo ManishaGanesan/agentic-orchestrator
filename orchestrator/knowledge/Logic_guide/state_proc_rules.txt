@@ -1,0 +1,19 @@
+State Procedure Rules
+
+1. Resolve LUTPTID from LUT_PricerType using the pricer type description from input Excel name or output.json.
+   Only valid targets are pricer descriptions matching '%Pro%'.
+
+2. For each state_procedures entry:
+   - Resolve state_id from state_acronym.
+   - Query LUT_PricerTypeAPRPro_State by LUTPTID + state_id + effective_date.
+   - Compare dates after formatting both sides to yyyy-mm-dd.
+
+3. Branch on action:
+   - ADD: existing state row must not exist.
+   - UPDATE: existing state row must exist exactly once.
+   - Otherwise return mismatch with database.
+
+4. If procedures list is present:
+   - New state ADD: insert StateProcedure rows directly.
+   - Existing state UPDATE: delete existing StateProcedure rows for LUTSID and reinsert in output.json order.
+   - Resolve LUTPID using LUT_PricerTypeAPRPro_Procedure by LUTPTID + PCode.

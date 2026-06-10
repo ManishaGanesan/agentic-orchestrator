@@ -6,7 +6,7 @@ import pyodbc
 conn = pyodbc.connect(
     "Driver={SQL Server};"
     "Server=wn000191827;"
-    "Database=RateMAnager_QA;"
+    "Database=RateMAnager_DEV;"
     "Trusted_Connection=yes;"
 )
 
