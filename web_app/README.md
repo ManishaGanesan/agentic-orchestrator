@@ -12,12 +12,71 @@ A lightweight FastAPI web application that provides a user-friendly interface fo
 - 🎨 **Clean UI**: Modern, responsive interface
 - 🚀 **Fast & Lightweight**: Built with FastAPI for performance
 
+## Prerequisites
+
+- **Python 3.11+** installed and on your PATH (verify with `python --version`)
+- **Git** to clone the repository
+- A terminal (PowerShell on Windows, bash/zsh on macOS/Linux)
+
 ## Installation
 
-1. **Install dependencies**:
+> Run all commands from the **project root** (`pps-rm-agentic-orchestrator`), not from the `web_app` folder. The app uses paths relative to the project root.
+
+1. **Clone the repository** (skip if you already have it):
 ```bash
-pip install -r requirements.txt
+git clone <repository-url>
+cd pps-rm-agentic-orchestrator
 ```
+
+2. **Create and activate a virtual environment**:
+
+```powershell
+# Windows (PowerShell)
+py -3 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+```bash
+# macOS / Linux
+python3 -m venv .venv
+source .venv/bin/activate
+```
+> If PowerShell blocks activation with a "running scripts is disabled" error, run once:
+> `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`
+
+Once activated, your prompt shows `(.venv)`.
+
+3. **Install dependencies**:
+```bash
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+4. **Configure environment variables**:
+
+> Note: `.env.template` and `.env` live in the **project root**, one level *above* `web_app/` — not inside the `web_app/` folder. The app reads the root `.env` at startup (see [config.py](config.py)), so it must be created there.
+
+Copy the template to a `.env` file in the project root and fill in your values:
+```powershell
+# Windows (PowerShell)
+Copy-Item .env.template .env
+```
+```bash
+# macOS / Linux
+cp .env.template .env
+```
+
+The `.env` file holds credentials and configuration. Required and optional values:
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `CLIENT_ID` | Yes | OAuth client ID |
+| `CLIENT_SECRET` | Yes | OAuth client secret |
+| `PROJECT_ID` | Optional | Project identifier for the AI gateway |
+| `AZURE_ENDPOINT` | Optional | AI gateway base URL |
+| `DEPLOYMENT_NAME` | Optional | Model deployment name (e.g. `gpt-4.1_2025-04-14`) |
+| `API_VERSION` | Optional | API version string |
+
+> Never commit your `.env` file — it contains secrets. The basic upload/convert workflow runs without credentials; they are only needed for AI-assisted SQL generation.
 
 ## Running the Application
 
@@ -183,6 +242,16 @@ uvicorn web_app.main:app --reload --port 8080
 # Ensure you're in the project root directory
 # And dependencies are installed
 pip install -r requirements.txt
+```
+
+### "ModuleNotFoundError" or wrong Python being used
+- Make sure the virtual environment is activated (your prompt should show `(.venv)`).
+- Reinstall dependencies after activating: `python -m pip install -r requirements.txt`.
+
+### PowerShell: "running scripts is disabled on this system"
+Activation is blocked by the execution policy. Run once, then re-activate:
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 ```
 
 ### File upload fails

@@ -45,7 +45,7 @@ async def home():
     """Serve the main HTML interface"""
     html_file = Path("web_app/static/index.html")
     if html_file.exists():
-        return html_file.read_text()
+        return html_file.read_text(encoding="utf-8")
     return """
     <!DOCTYPE html>
     <html>
