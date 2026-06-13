@@ -1,4 +1,4 @@
-This repo has 2 major components:
+This repo has 3 major components:
 
 1. Dataset Builder
    - Converts regulatory Excel → structured JSON
@@ -9,7 +9,13 @@ This repo has 2 major components:
    - Produces audit logs
    - Prepares PR artifacts
 
-## Run steps 
+3. Web Application (NEW!)
+   - FastAPI-based web interface
+   - Upload Excel files via browser
+   - Process and download results
+   - Job management and tracking
+
+## Run steps (Command Line)
 Use the Windows Python launcher py to build a venv
 1. create venv using the system Python (py chooses an installed Python 3)
     - py -3 -m venv .venv
@@ -33,3 +39,13 @@ Use the Windows Python launcher py to build a venv
     - Only SQL blocks for those stories are included in the output.
 ## Orchestrator run
 1. python orchestrator/main.py
+
+## Web Application run
+1. **Trigger ps in venv**: .\web_app\start.ps1
+2. **Open in browser**: http://localhost:8000
+3. **Upload and process**:
+   - Enter previous/new versions
+   - Select Excel file(s)
+   - Click "Upload & Process"
+   - Verify Output.json file under input_excels folder
+📚 See [web_app/README.md](web_app/README.md) for detailed documentation.

@@ -5,4 +5,8 @@ venv/
 output/
 .venv
 .vs/
+
+# Web application directories
+web_app/uploads/
+web_app/outputs/
 ``

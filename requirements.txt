@@ -11,3 +11,10 @@ python-dotenv>=1.0.1
 
 #SQL connection
 pyodbc>=4.0.30
+
+# Web Application (FastAPI)
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+aiofiles>=23.2.0
+pydantic-settings>=2.0.0
