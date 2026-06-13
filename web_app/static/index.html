@@ -308,18 +308,6 @@
                 <p>Processing your files...</p>
             </div>
         </div>
-
-        <div class="card">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h2>Recent Jobs</h2>
-                <button class="btn btn-secondary btn-sm" onclick="loadJobs()">
-                    🔄 Refresh
-                </button>
-            </div>
-            <div id="jobsList" class="jobs-list">
-                <p style="text-align: center; color: #666;">Loading jobs...</p>
-            </div>
-        </div>
     </div>
 
     <script>
@@ -331,7 +319,6 @@
         const loading = document.getElementById('loading');
         const uploadBtn = document.getElementById('uploadBtn');
         const alertContainer = document.getElementById('alertContainer');
-        const jobsList = document.getElementById('jobsList');
 
         filesInput.addEventListener('change', (e) => {
             const files = Array.from(e.target.files);
@@ -354,12 +341,10 @@
             const formData = new FormData();
             formData.append('previous_version', document.getElementById('previousVersion').value);
             formData.append('new_version', document.getElementById('newVersion').value);
-
             const storyId = document.getElementById('storyId').value;
             if (storyId) {
                 formData.append('story_id', storyId);
             }
-
             const files = filesInput.files;
             for (let i = 0; i < files.length; i++) {
                 formData.append('files', files[i]);
@@ -369,7 +354,7 @@
                 loading.style.display = 'block';
                 uploadBtn.disabled = true;
                 clearAlerts();
-
+                // Step 1: Upload files
                 const uploadResponse = await fetch(`${API_BASE}/api/upload`, {
                     method: 'POST',
                     body: formData
@@ -381,9 +366,10 @@
                     throw new Error(uploadResult.detail || 'Upload failed');
                 }
 
-                showAlert('Files uploaded successfully! Processing...', 'success');
+                showAlert('✅ Files uploaded successfully. Processing now...', 'success');
 
-                const processResponse = await fetch(`${API_BASE}/api/process/${uploadResult.job_id}`, {
+                // Step 2: Process uploaded files
+                const processResponse = await fetch(`${API_BASE}/api/process`, {
                     method: 'POST'
                 });
 
@@ -392,17 +378,7 @@
                 if (!processResponse.ok) {
                     throw new Error(processResult.detail || 'Processing failed');
                 }
-
-                showAlert(
-                    `✅ Processing completed successfully!<br>
-                    State Procedures: ${processResult.summary.state_procedures_count}<br>
-                    Procedure Variables: ${processResult.summary.procedure_variables_count}`,
-                    'success'
-                );
-
-                uploadForm.reset();
-                fileList.innerHTML = '';
-                loadJobs();
+                showAlert('✅ Processing completed! Output JSON saved successfully.', 'success');
 
             } catch (error) {
                 showAlert(`❌ Error: ${error.message}`, 'error');
@@ -412,120 +388,11 @@
             }
         });
 
-        async function loadJobs() {
-            try {
-                const response = await fetch(`${API_BASE}/api/jobs`);
-                const data = await response.json();
-
-                if (data.jobs.length === 0) {
-                    jobsList.innerHTML = '<p style="text-align: center; color: #666;">No jobs found</p>';
-                    return;
-                }
-
-                jobsList.innerHTML = '';
-
-                data.jobs.forEach(job => {
-                    const jobCard = document.createElement('div');
-                    jobCard.className = 'job-card';
-
-                    const processedBadge = job.processed 
-                        ? '<span class="badge badge-success">Processed</span>'
-                        : '<span class="badge badge-warning">Pending</span>';
-
-                    jobCard.innerHTML = `
-                        <div class="job-header">
-                            <span class="job-id">${job.job_id}</span>
-                            ${processedBadge}
-                        </div>
-                        <div class="job-details">
-                            <div><strong>Versions:</strong> ${job.previous_version} → ${job.new_version}</div>
-                            ${job.story_id ? `<div><strong>Story ID:</strong> ${job.story_id}</div>` : ''}
-                            <div><strong>Files:</strong> ${job.uploaded_files.length}</div>
-                            <div><strong>Created:</strong> ${new Date(job.timestamp.replace(/_/g, '')).toLocaleString()}</div>
-                            ${job.result_summary ? `
-                                <div><strong>Results:</strong> 
-                                    ${job.result_summary.state_procedures_count} state procedures, 
-                                    ${job.result_summary.procedure_variables_count} procedure variables
-                                </div>
-                            ` : ''}
-                        </div>
-                        <div class="job-actions">
-                            ${job.processed ? `
-                                <button class="btn btn-success btn-sm" onclick="downloadJob('${job.job_id}')">
-                                    ⬇️ Download JSON
-                                </button>
-                            ` : `
-                                <button class="btn btn-secondary btn-sm" onclick="processJob('${job.job_id}')">
-                                    ▶️ Process Now
-                                </button>
-                            `}
-                            <button class="btn btn-danger btn-sm" onclick="deleteJob('${job.job_id}')">
-                                🗑️ Delete
-                            </button>
-                        </div>
-                    `;
-
-                    jobsList.appendChild(jobCard);
-                });
-
-            } catch (error) {
-                jobsList.innerHTML = `<p style="text-align: center; color: #dc3545;">Error loading jobs: ${error.message}</p>`;
-            }
-        }
-
-        async function processJob(jobId) {
-            try {
-                showAlert('Processing job...', 'info');
-
-                const response = await fetch(`${API_BASE}/api/process/${jobId}`, {
-                    method: 'POST'
-                });
-
-                const result = await response.json();
-
-                if (!response.ok) {
-                    throw new Error(result.detail || 'Processing failed');
-                }
-
-                showAlert('✅ Job processed successfully!', 'success');
-                loadJobs();
-
-            } catch (error) {
-                showAlert(`❌ Error: ${error.message}`, 'error');
-            }
-        }
-
-        async function downloadJob(jobId) {
-            window.location.href = `${API_BASE}/api/download/${jobId}`;
-        }
-
-        async function deleteJob(jobId) {
-            if (!confirm('Are you sure you want to delete this job?')) {
-                return;
-            }
-
-            try {
-                const response = await fetch(`${API_BASE}/api/job/${jobId}`, {
-                    method: 'DELETE'
-                });
-
-                const result = await response.json();
-
-                if (!response.ok) {
-                    throw new Error(result.detail || 'Delete failed');
-                }
-
-                showAlert('✅ Job deleted successfully!', 'success');
-                loadJobs();
-
-            } catch (error) {
-                showAlert(`❌ Error: ${error.message}`, 'error');
-            }
-        }
-
         function showAlert(message, type) {
-            const alertClass = type === 'success' ? 'alert-success' : 
-                              type === 'error' ? 'alert-error' : 'alert-info';
+            const alertClass =
+                type === 'success' ? 'alert-success' :
+                type === 'error' ? 'alert-error' :
+                'alert-info';
 
             const alert = document.createElement('div');
             alert.className = `alert ${alertClass}`;
@@ -533,19 +400,11 @@
 
             alertContainer.innerHTML = '';
             alertContainer.appendChild(alert);
-
-            if (type === 'success' || type === 'info') {
-                setTimeout(() => {
-                    alert.remove();
-                }, 5000);
-            }
         }
 
         function clearAlerts() {
             alertContainer.innerHTML = '';
         }
-
-        loadJobs();
     </script>
 </body>
 </html>

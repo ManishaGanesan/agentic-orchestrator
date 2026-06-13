@@ -4,6 +4,7 @@ Handles file uploads, version management, and SQL script generation
 """
 import os
 import json
+from platform import processor
 import shutil
 from datetime import datetime
 from pathlib import Path
@@ -13,11 +14,10 @@ from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 import sys
-
+import subprocess
 sys.path.append(str(Path(__file__).parent.parent))
-
 from dataset_builder.input_processor import InputProcessor
-
+processor = InputProcessor()
 app = FastAPI(
     title="Excel to SQL Converter",
     description="AI-powered tool to convert Excel changes into SQL scripts",
@@ -32,13 +32,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-UPLOAD_DIR = Path("web_app/uploads")
-OUTPUT_DIR = Path("web_app/outputs")
+
+UPLOAD_DIR = Path("input_excels")
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+OUTPUT_DIR = Path("web_app/outputs")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-
-processor = InputProcessor()
-
 
 @app.get("/", response_class=HTMLResponse)
 async def home():
@@ -59,7 +57,6 @@ async def home():
     </html>
     """
 
-
 @app.get("/health")
 async def health_check():
     """Health check endpoint"""
@@ -69,77 +66,59 @@ async def health_check():
         "service": "excel-to-sql-converter"
     }
 
-
 @app.post("/api/upload")
 async def upload_files(
-    background_tasks: BackgroundTasks,
-    previous_version: str = Form(..., description="Previous version (e.g., V2605.00)"),
-    new_version: str = Form(..., description="New version (e.g., V2606.00)"),
-    story_id: Optional[str] = Form(None, description="Story ID (e.g., US1234567)"),
-    files: List[UploadFile] = File(..., description="Excel files to process")
+    previous_version: str = Form(...),
+    new_version: str = Form(...),
+    story_id: Optional[str] = Form(None),
+    files: List[UploadFile] = File(...)
 ):
     """
-    Upload Excel files and process them
-    Accepts multiple Excel files and version information
+    Upload Excel files directly to input_excels/
     """
     try:
         if not files:
             raise HTTPException(status_code=400, detail="No files provided")
 
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        job_id = f"job_{timestamp}"
-        job_dir = UPLOAD_DIR / job_id
-        job_dir.mkdir(parents=True, exist_ok=True)
-
         uploaded_files = []
 
+        for existing_file in UPLOAD_DIR.iterdir():
+            if existing_file.is_file():
+                existing_file.unlink()
+        global LATEST_INPUT      
+        LATEST_INPUT = {
+            "previous_version": previous_version,
+            "new_version": new_version,
+            "story_id": story_id
+        }
         for file in files:
-            if not file.filename.endswith(('.xlsx', '.xlsm')):
+            if not file.filename.endswith((".xlsx", ".xlsm")):
                 raise HTTPException(
-                    status_code=400, 
-                    detail=f"Invalid file type: {file.filename}. Only .xlsx and .xlsm files are allowed"
+                    status_code=400,
+                    detail=f"Invalid file type: {file.filename}"
                 )
 
-            file_path = job_dir / file.filename
+            file_path = UPLOAD_DIR / file.filename
 
             with open(file_path, "wb") as buffer:
                 shutil.copyfileobj(file.file, buffer)
 
-            uploaded_files.append({
-                "filename": file.filename,
-                "size": os.path.getsize(file_path),
-                "path": str(file_path)
-            })
+            uploaded_files.append(file.filename)
 
-        metadata = {
-            "job_id": job_id,
+        return {
+            "success": True,
+            "message": f"{len(files)} file(s) uploaded successfully",
+            "files": uploaded_files,
             "previous_version": previous_version,
             "new_version": new_version,
-            "story_id": story_id,
-            "timestamp": timestamp,
-            "uploaded_files": uploaded_files
-        }
-
-        metadata_file = job_dir / "metadata.json"
-        with open(metadata_file, "w") as f:
-            json.dump(metadata, f, indent=2)
-
-        return {
-            "success": True,
-            "job_id": job_id,
-            "message": f"Successfully uploaded {len(files)} file(s)",
-            "files": uploaded_files,
-            "metadata": metadata
+            "story_id": story_id
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Upload failed: {str(e)}")
-
-
-@app.post("/api/process/{job_id}")
-async def process_job(job_id: str):
+        raise HTTPException(status_code=500, detail=str(e))
+    
     """
-    Process uploaded Excel files and generate structured JSON
+    Trigger processing using external input_processor.py
     """
     try:
         job_dir = UPLOAD_DIR / job_id
@@ -147,142 +126,61 @@ async def process_job(job_id: str):
         if not job_dir.exists():
             raise HTTPException(status_code=404, detail=f"Job {job_id} not found")
 
-        metadata_file = job_dir / "metadata.json"
-        if not metadata_file.exists():
-            raise HTTPException(status_code=404, detail="Job metadata not found")
-
-        with open(metadata_file, "r") as f:
-            metadata = json.load(f)
-
-        result = processor.process_folder(str(job_dir))
-
-        output_file = OUTPUT_DIR / f"{job_id}_output.json"
-        with open(output_file, "w") as f:
-            json.dump(result, f, indent=2, default=str)
-
-        metadata["processed"] = True
-        metadata["output_file"] = str(output_file)
-        metadata["processing_timestamp"] = datetime.now().isoformat()
-        metadata["result_summary"] = {
-            "state_procedures_count": len(result.get("state_procedures", [])),
-            "procedure_variables_count": len(result.get("procedure_variables", []))
-        }
-
-        with open(metadata_file, "w") as f:
-            json.dump(metadata, f, indent=2)
-
-        return {
-            "success": True,
-            "job_id": job_id,
-            "message": "Processing completed successfully",
-            "result": result,
-            "summary": metadata["result_summary"],
-            "output_file": str(output_file)
-        }
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Processing failed: {str(e)}")
-
-
-@app.get("/api/jobs")
-async def list_jobs():
-    """
-    List all processing jobs
-    """
-    try:
-        jobs = []
-
-        if UPLOAD_DIR.exists():
-            for job_dir in sorted(UPLOAD_DIR.iterdir(), reverse=True):
-                if job_dir.is_dir():
-                    metadata_file = job_dir / "metadata.json"
-                    if metadata_file.exists():
-                        with open(metadata_file, "r") as f:
-                            metadata = json.load(f)
-                            jobs.append(metadata)
-
-        return {
-            "success": True,
-            "count": len(jobs),
-            "jobs": jobs
-        }
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to list jobs: {str(e)}")
-
-
-@app.get("/api/job/{job_id}")
-async def get_job(job_id: str):
-    """
-    Get job details and status
-    """
-    try:
-        job_dir = UPLOAD_DIR / job_id
-
-        if not job_dir.exists():
-            raise HTTPException(status_code=404, detail=f"Job {job_id} not found")
-
-        metadata_file = job_dir / "metadata.json"
-        if not metadata_file.exists():
-            raise HTTPException(status_code=404, detail="Job metadata not found")
-
-        with open(metadata_file, "r") as f:
-            metadata = json.load(f)
-
-        return {
-            "success": True,
-            "job": metadata
-        }
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to get job: {str(e)}")
-
-
-@app.get("/api/download/{job_id}")
-async def download_result(job_id: str):
-    """
-    Download the processed JSON output
-    """
-    try:
-        output_file = OUTPUT_DIR / f"{job_id}_output.json"
-
-        if not output_file.exists():
-            raise HTTPException(status_code=404, detail="Output file not found. Process the job first.")
-
-        return FileResponse(
-            path=output_file,
-            media_type="application/json",
-            filename=f"{job_id}_output.json"
+        # Call your existing script
+        result = subprocess.run(
+            [
+                "python",
+                "dataset_builder/input_processor.py",
+                str(job_dir)
+            ],
+            capture_output=True,
+            text=True
         )
 
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Download failed: {str(e)}")
-
-
-@app.delete("/api/job/{job_id}")
-async def delete_job(job_id: str):
-    """
-    Delete a job and its associated files
-    """
-    try:
-        job_dir = UPLOAD_DIR / job_id
-        output_file = OUTPUT_DIR / f"{job_id}_output.json"
-
-        if job_dir.exists():
-            shutil.rmtree(job_dir)
-
-        if output_file.exists():
-            output_file.unlink()
+        if result.returncode != 0:
+            raise HTTPException(
+                status_code=500,
+                detail=f"Processing failed: {result.stderr}"
+            )
 
         return {
             "success": True,
-            "message": f"Job {job_id} deleted successfully"
+            "job_id": job_id,
+            "message": "Processing triggered successfully",
+            "output": result.stdout
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to delete job: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
 
+@app.post("/api/process")
+async def process_files():
+    try:
+        # Run processor
+        result = processor.process_folder(str(UPLOAD_DIR))
 
+        # ✅ Merge metadata directly with original JSON
+        final_output = {
+            "previous_version": LATEST_INPUT.get("previous_version"),
+            "new_version": LATEST_INPUT.get("new_version"),
+            "story_id": LATEST_INPUT.get("story_id"),
+            **result
+        }
+
+        # ✅ Save in same folder
+        output_path = UPLOAD_DIR / "output.json"
+
+        with open(output_path, "w") as f:
+            json.dump(final_output, f, indent=2, default=str)
+
+        return {
+            "success": True,
+            "message": f"Processing completed. Output saved to {output_path}"
+        }
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)

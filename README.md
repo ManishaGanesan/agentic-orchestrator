@@ -15,32 +15,6 @@ This repo has 3 major components:
    - Process and download results
    - Job management and tracking
 
-## Quick Start - Web Application 🚀
-
-1. **Setup environment** (if not already done):
-    ```powershell
-    py -3 -m venv .venv
-    .\.venv\Scripts\Activate.ps1
-    python -m pip install -r requirements.txt
-    ```
-
-2. **Start the web application**:
-    ```powershell
-    .\web_app\start.ps1
-    # OR
-    python web_app/main.py
-    ```
-
-3. **Open in browser**: http://localhost:8000
-
-4. **Upload and process**:
-   - Enter previous/new versions
-   - Select Excel file(s)
-   - Click "Upload & Process"
-   - Download results
-
-📚 See [web_app/README.md](web_app/README.md) for detailed documentation.
-
 ## Run steps (Command Line)
 Use the Windows Python launcher py to build a venv
 1. create venv using the system Python (py chooses an installed Python 3)
@@ -65,3 +39,13 @@ Use the Windows Python launcher py to build a venv
     - Only SQL blocks for those stories are included in the output.
 ## Orchestrator run
 1. python orchestrator/main.py
+
+## Web Application run
+1. **Trigger ps in venv**: .\web_app\start.ps1
+2. **Open in browser**: http://localhost:8000
+3. **Upload and process**:
+   - Enter previous/new versions
+   - Select Excel file(s)
+   - Click "Upload & Process"
+   - Verify Output.json file under input_excels folder
+📚 See [web_app/README.md](web_app/README.md) for detailed documentation.
