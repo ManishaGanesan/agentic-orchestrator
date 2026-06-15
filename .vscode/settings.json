@@ -1,0 +1,8 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^cd \"/Users/manishaganesan/Documents/SEM 4/agentic-orchestrator/database\" && python - <<'PY'\nimport sqlite3\nimport os\nfrom pathlib import Path\npath = Path\\('rate_manager\\.sqlite'\\)\nprint\\('exists', path\\.exists\\(\\)\\)\nif path\\.exists\\(\\):\n    conn = sqlite3\\.connect\\(path\\)\n    cur = conn\\.cursor\\(\\)\n    cur\\.execute\\(\"SELECT name FROM sqlite_master WHERE type='table' ORDER BY name\"\\)\n    print\\('tables:', cur\\.fetchall\\(\\)\\)\n    for name in \\['PTData','PTVData','LUT_PricerType','LUT_PricerTypeVariable'\\]:\n        try:\n            cur\\.execute\\(f\"SELECT count\\(\\*\\) FROM \\\\\"\\{name\\}\\\\\"\"\\)\n            print\\(name, cur\\.fetchone\\(\\)\\[0\\]\\)\n        except Exception as e:\n            print\\(name, 'missing or error', e\\)\n    conn\\.close\\(\\)\nPY$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}
