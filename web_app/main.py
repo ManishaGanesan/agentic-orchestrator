@@ -35,7 +35,7 @@ app.add_middleware(
 
 UPLOAD_DIR = Path("input_excels")
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
-OUTPUT_DIR = Path("web_app/outputs")
+OUTPUT_DIR = Path("output_jsons")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 @app.get("/", response_class=HTMLResponse)
@@ -82,9 +82,9 @@ async def upload_files(
 
         uploaded_files = []
 
-        for existing_file in UPLOAD_DIR.iterdir():
-            if existing_file.is_file():
-                existing_file.unlink()
+        # for existing_file in UPLOAD_DIR.iterdir():
+        #     if existing_file.is_file():
+        #         existing_file.unlink()
         global LATEST_INPUT      
         LATEST_INPUT = {
             "previous_version": previous_version,
@@ -116,42 +116,6 @@ async def upload_files(
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-    
-    """
-    Trigger processing using external input_processor.py
-    """
-    try:
-        job_dir = UPLOAD_DIR / job_id
-
-        if not job_dir.exists():
-            raise HTTPException(status_code=404, detail=f"Job {job_id} not found")
-
-        # Call your existing script
-        result = subprocess.run(
-            [
-                "python",
-                "dataset_builder/input_processor.py",
-                str(job_dir)
-            ],
-            capture_output=True,
-            text=True
-        )
-
-        if result.returncode != 0:
-            raise HTTPException(
-                status_code=500,
-                detail=f"Processing failed: {result.stderr}"
-            )
-
-        return {
-            "success": True,
-            "job_id": job_id,
-            "message": "Processing triggered successfully",
-            "output": result.stdout
-        }
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/api/process")
 async def process_files():
@@ -167,8 +131,8 @@ async def process_files():
             **result
         }
 
-        # ✅ Save in same folder
-        output_path = UPLOAD_DIR / "output.json"
+        # ✅ Save in output folder
+        output_path = OUTPUT_DIR / "output.json"
 
         with open(output_path, "w") as f:
             json.dump(final_output, f, indent=2, default=str)

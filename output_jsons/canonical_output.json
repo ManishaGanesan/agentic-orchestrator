@@ -1,0 +1,2648 @@
+{
+    "years": {
+        "2025": {
+            "V2501.01": [
+                {
+                    "update_folder": "MedicaidAPGPro",
+                    "status": "processed",
+                    "state_procedures": [
+                        {
+                            "state_name": "MedicaidAPGPro",
+                            "state_acronym": null,
+                            "state_id": "CO",
+                            "effective_date": "2024-07-01 00:00:00",
+                            "action": "UPDATE",
+                            "procedures": [
+                                {
+                                    "display_order": 7,
+                                    "pcode": 162,
+                                    "source_column": "procedure7"
+                                },
+                                {
+                                    "display_order": 8,
+                                    "pcode": 50,
+                                    "source_column": "procedure8"
+                                },
+                                {
+                                    "display_order": 9,
+                                    "pcode": 51,
+                                    "source_column": "procedure9"
+                                },
+                                {
+                                    "display_order": 10,
+                                    "pcode": 52,
+                                    "source_column": "procedure10"
+                                },
+                                {
+                                    "display_order": 11,
+                                    "pcode": 102,
+                                    "source_column": "procedure11"
+                                },
+                                {
+                                    "display_order": 12,
+                                    "pcode": 103,
+                                    "source_column": "procedure12"
+                                },
+                                {
+                                    "display_order": 13,
+                                    "pcode": 57,
+                                    "source_column": "procedure13"
+                                },
+                                {
+                                    "display_order": 14,
+                                    "pcode": 137,
+                                    "source_column": "procedure14"
+                                },
+                                {
+                                    "display_order": 15,
+                                    "pcode": 104,
+                                    "source_column": "procedure15"
+                                },
+                                {
+                                    "display_order": 16,
+                                    "pcode": 106,
+                                    "source_column": "procedure16"
+                                },
+                                {
+                                    "display_order": 17,
+                                    "pcode": 107,
+                                    "source_column": "procedure17"
+                                },
+                                {
+                                    "display_order": 18,
+                                    "pcode": 108,
+                                    "source_column": "procedure18"
+                                },
+                                {
+                                    "display_order": 19,
+                                    "pcode": 109,
+                                    "source_column": "procedure19"
+                                },
+                                {
+                                    "display_order": 20,
+                                    "pcode": 110,
+                                    "source_column": "procedure20"
+                                },
+                                {
+                                    "display_order": 21,
+                                    "pcode": 101,
+                                    "source_column": "procedure21"
+                                },
+                                {
+                                    "display_order": 22,
+                                    "pcode": 132,
+                                    "source_column": "procedure22"
+                                },
+                                {
+                                    "display_order": 23,
+                                    "pcode": 111,
+                                    "source_column": "procedure23"
+                                },
+                                {
+                                    "display_order": 24,
+                                    "pcode": 161,
+                                    "source_column": "procedure24"
+                                },
+                                {
+                                    "display_order": 25,
+                                    "pcode": 112,
+                                    "source_column": "procedure25"
+                                },
+                                {
+                                    "display_order": 26,
+                                    "pcode": 136,
+                                    "source_column": "procedure26"
+                                },
+                                {
+                                    "display_order": 27,
+                                    "pcode": 113,
+                                    "source_column": "procedure27"
+                                }
+                            ],
+                            "source_file": "MedicaidAPGPro_StateProcedures.xlsx"
+                        },
+                        {
+                            "state_name": "MedicaidAPGPro",
+                            "state_acronym": null,
+                            "state_id": "CO",
+                            "effective_date": "2023-10-30 00:00:00",
+                            "action": "UPDATE",
+                            "procedures": [
+                                {
+                                    "display_order": 7,
+                                    "pcode": 162,
+                                    "source_column": "procedure7"
+                                },
+                                {
+                                    "display_order": 8,
+                                    "pcode": 50,
+                                    "source_column": "procedure8"
+                                },
+                                {
+                                    "display_order": 9,
+                                    "pcode": 51,
+                                    "source_column": "procedure9"
+                                },
+                                {
+                                    "display_order": 10,
+                                    "pcode": 52,
+                                    "source_column": "procedure10"
+                                },
+                                {
+                                    "display_order": 11,
+                                    "pcode": 102,
+                                    "source_column": "procedure11"
+                                },
+                                {
+                                    "display_order": 12,
+                                    "pcode": 103,
+                                    "source_column": "procedure12"
+                                },
+                                {
+                                    "display_order": 13,
+                                    "pcode": 57,
+                                    "source_column": "procedure13"
+                                },
+                                {
+                                    "display_order": 14,
+                                    "pcode": 137,
+                                    "source_column": "procedure14"
+                                },
+                                {
+                                    "display_order": 15,
+                                    "pcode": 104,
+                                    "source_column": "procedure15"
+                                },
+                                {
+                                    "display_order": 16,
+                                    "pcode": 106,
+                                    "source_column": "procedure16"
+                                },
+                                {
+                                    "display_order": 17,
+                                    "pcode": 107,
+                                    "source_column": "procedure17"
+                                },
+                                {
+                                    "display_order": 18,
+                                    "pcode": 108,
+                                    "source_column": "procedure18"
+                                },
+                                {
+                                    "display_order": 19,
+                                    "pcode": 109,
+                                    "source_column": "procedure19"
+                                },
+                                {
+                                    "display_order": 20,
+                                    "pcode": 110,
+                                    "source_column": "procedure20"
+                                },
+                                {
+                                    "display_order": 21,
+                                    "pcode": 101,
+                                    "source_column": "procedure21"
+                                },
+                                {
+                                    "display_order": 22,
+                                    "pcode": 132,
+                                    "source_column": "procedure22"
+                                },
+                                {
+                                    "display_order": 23,
+                                    "pcode": 111,
+                                    "source_column": "procedure23"
+                                },
+                                {
+                                    "display_order": 24,
+                                    "pcode": 112,
+                                    "source_column": "procedure24"
+                                },
+                                {
+                                    "display_order": 25,
+                                    "pcode": 136,
+                                    "source_column": "procedure25"
+                                },
+                                {
+                                    "display_order": 26,
+                                    "pcode": 113,
+                                    "source_column": "procedure26"
+                                }
+                            ],
+                            "source_file": "MedicaidAPGPro_StateProcedures.xlsx"
+                        },
+                        {
+                            "state_name": "MedicaidAPGPro",
+                            "state_acronym": null,
+                            "state_id": "CO",
+                            "effective_date": "2020-01-01 00:00:00",
+                            "action": "UPDATE",
+                            "procedures": [
+                                {
+                                    "display_order": 7,
+                                    "pcode": 162,
+                                    "source_column": "procedure7"
+                                },
+                                {
+                                    "display_order": 8,
+                                    "pcode": 50,
+                                    "source_column": "procedure8"
+                                },
+                                {
+                                    "display_order": 9,
+                                    "pcode": 51,
+                                    "source_column": "procedure9"
+                                },
+                                {
+                                    "display_order": 10,
+                                    "pcode": 52,
+                                    "source_column": "procedure10"
+                                },
+                                {
+                                    "display_order": 11,
+                                    "pcode": 55,
+                                    "source_column": "procedure11"
+                                },
+                                {
+                                    "display_order": 12,
+                                    "pcode": 102,
+                                    "source_column": "procedure12"
+                                },
+                                {
+                                    "display_order": 13,
+                                    "pcode": 103,
+                                    "source_column": "procedure13"
+                                },
+                                {
+                                    "display_order": 14,
+                                    "pcode": 57,
+                                    "source_column": "procedure14"
+                                },
+                                {
+                                    "display_order": 15,
+                                    "pcode": 137,
+                                    "source_column": "procedure15"
+                                },
+                                {
+                                    "display_order": 16,
+                                    "pcode": 104,
+                                    "source_column": "procedure16"
+                                },
+                                {
+                                    "display_order": 17,
+                                    "pcode": 106,
+                                    "source_column": "procedure17"
+                                },
+                                {
+                                    "display_order": 18,
+                                    "pcode": 107,
+                                    "source_column": "procedure18"
+                                },
+                                {
+                                    "display_order": 19,
+                                    "pcode": 108,
+                                    "source_column": "procedure19"
+                                },
+                                {
+                                    "display_order": 20,
+                                    "pcode": 109,
+                                    "source_column": "procedure20"
+                                },
+                                {
+                                    "display_order": 21,
+                                    "pcode": 110,
+                                    "source_column": "procedure21"
+                                },
+                                {
+                                    "display_order": 22,
+                                    "pcode": 101,
+                                    "source_column": "procedure22"
+                                },
+                                {
+                                    "display_order": 23,
+                                    "pcode": 132,
+                                    "source_column": "procedure23"
+                                },
+                                {
+                                    "display_order": 24,
+                                    "pcode": 111,
+                                    "source_column": "procedure24"
+                                },
+                                {
+                                    "display_order": 25,
+                                    "pcode": 112,
+                                    "source_column": "procedure25"
+                                },
+                                {
+                                    "display_order": 26,
+                                    "pcode": 136,
+                                    "source_column": "procedure26"
+                                },
+                                {
+                                    "display_order": 27,
+                                    "pcode": 113,
+                                    "source_column": "procedure27"
+                                }
+                            ],
+                            "source_file": "MedicaidAPGPro_StateProcedures.xlsx"
+                        },
+                        {
+                            "state_name": "MedicaidAPGPro",
+                            "state_acronym": null,
+                            "state_id": "CO",
+                            "effective_date": "2018-08-11 00:00:00",
+                            "action": "UPDATE",
+                            "procedures": [
+                                {
+                                    "display_order": 7,
+                                    "pcode": 162,
+                                    "source_column": "procedure7"
+                                },
+                                {
+                                    "display_order": 8,
+                                    "pcode": 50,
+                                    "source_column": "procedure8"
+                                },
+                                {
+                                    "display_order": 9,
+                                    "pcode": 51,
+                                    "source_column": "procedure9"
+                                },
+                                {
+                                    "display_order": 10,
+                                    "pcode": 52,
+                                    "source_column": "procedure10"
+                                },
+                                {
+                                    "display_order": 11,
+                                    "pcode": 55,
+                                    "source_column": "procedure11"
+                                },
+                                {
+                                    "display_order": 12,
+                                    "pcode": 102,
+                                    "source_column": "procedure12"
+                                },
+                                {
+                                    "display_order": 13,
+                                    "pcode": 103,
+                                    "source_column": "procedure13"
+                                },
+                                {
+                                    "display_order": 14,
+                                    "pcode": 57,
+                                    "source_column": "procedure14"
+                                },
+                                {
+                                    "display_order": 15,
+                                    "pcode": 104,
+                                    "source_column": "procedure15"
+                                },
+                                {
+                                    "display_order": 16,
+                                    "pcode": 106,
+                                    "source_column": "procedure16"
+                                },
+                                {
+                                    "display_order": 17,
+                                    "pcode": 107,
+                                    "source_column": "procedure17"
+                                },
+                                {
+                                    "display_order": 18,
+                                    "pcode": 108,
+                                    "source_column": "procedure18"
+                                },
+                                {
+                                    "display_order": 19,
+                                    "pcode": 109,
+                                    "source_column": "procedure19"
+                                },
+                                {
+                                    "display_order": 20,
+                                    "pcode": 110,
+                                    "source_column": "procedure20"
+                                },
+                                {
+                                    "display_order": 21,
+                                    "pcode": 132,
+                                    "source_column": "procedure21"
+                                },
+                                {
+                                    "display_order": 22,
+                                    "pcode": 111,
+                                    "source_column": "procedure22"
+                                },
+                                {
+                                    "display_order": 23,
+                                    "pcode": 112,
+                                    "source_column": "procedure23"
+                                },
+                                {
+                                    "display_order": 24,
+                                    "pcode": 136,
+                                    "source_column": "procedure24"
+                                },
+                                {
+                                    "display_order": 25,
+                                    "pcode": 113,
+                                    "source_column": "procedure25"
+                                }
+                            ],
+                            "source_file": "MedicaidAPGPro_StateProcedures.xlsx"
+                        },
+                        {
+                            "state_name": "MedicaidAPGPro",
+                            "state_acronym": null,
+                            "state_id": "CO",
+                            "effective_date": "2018-07-01 00:00:00",
+                            "action": "UPDATE",
+                            "procedures": [
+                                {
+                                    "display_order": 4,
+                                    "pcode": 162,
+                                    "source_column": "procedure4"
+                                },
+                                {
+                                    "display_order": 5,
+                                    "pcode": 50,
+                                    "source_column": "procedure5"
+                                },
+                                {
+                                    "display_order": 6,
+                                    "pcode": 51,
+                                    "source_column": "procedure6"
+                                },
+                                {
+                                    "display_order": 7,
+                                    "pcode": 52,
+                                    "source_column": "procedure7"
+                                },
+                                {
+                                    "display_order": 8,
+                                    "pcode": 55,
+                                    "source_column": "procedure8"
+                                },
+                                {
+                                    "display_order": 9,
+                                    "pcode": 102,
+                                    "source_column": "procedure9"
+                                },
+                                {
+                                    "display_order": 10,
+                                    "pcode": 103,
+                                    "source_column": "procedure10"
+                                },
+                                {
+                                    "display_order": 11,
+                                    "pcode": 57,
+                                    "source_column": "procedure11"
+                                },
+                                {
+                                    "display_order": 12,
+                                    "pcode": 104,
+                                    "source_column": "procedure12"
+                                },
+                                {
+                                    "display_order": 13,
+                                    "pcode": 106,
+                                    "source_column": "procedure13"
+                                },
+                                {
+                                    "display_order": 14,
+                                    "pcode": 107,
+                                    "source_column": "procedure14"
+                                },
+                                {
+                                    "display_order": 15,
+                                    "pcode": 108,
+                                    "source_column": "procedure15"
+                                },
+                                {
+                                    "display_order": 16,
+                                    "pcode": 109,
+                                    "source_column": "procedure16"
+                                },
+                                {
+                                    "display_order": 17,
+                                    "pcode": 110,
+                                    "source_column": "procedure17"
+                                },
+                                {
+                                    "display_order": 18,
+                                    "pcode": 132,
+                                    "source_column": "procedure18"
+                                },
+                                {
+                                    "display_order": 19,
+                                    "pcode": 111,
+                                    "source_column": "procedure19"
+                                },
+                                {
+                                    "display_order": 20,
+                                    "pcode": 112,
+                                    "source_column": "procedure20"
+                                },
+                                {
+                                    "display_order": 21,
+                                    "pcode": 136,
+                                    "source_column": "procedure21"
+                                },
+                                {
+                                    "display_order": 22,
+                                    "pcode": 113,
+                                    "source_column": "procedure22"
+                                }
+                            ],
+                            "source_file": "MedicaidAPGPro_StateProcedures.xlsx"
+                        }
+                    ],
+                    "procedure_variables": [],
+                    "sql_script": null,
+                    "validation": {
+                        "has_state_procedures_file": true,
+                        "has_variables_file": false,
+                        "has_sql_script_file": true,
+                        "state_procedures_records_count": 5,
+                        "procedure_variables_records_count": 0,
+                        "sql_script_loaded": false
+                    },
+                    "errors": [
+                        "Error reading SQL file v250100-v250101_RateManager.sql: cannot access local variable 'formatted_content' where it is not associated with a value"
+                    ]
+                }
+            ],
+            "V2503.01": [
+                {
+                    "update_folder": "MedicaidMSDRGPro",
+                    "status": "processed",
+                    "state_procedures": [
+                        {
+                            "state_name": "MedicaidMSDRGPro",
+                            "state_acronym": null,
+                            "state_id": "IA",
+                            "effective_date": 20250101,
+                            "action": "UPDATE",
+                            "procedures": [
+                                {
+                                    "display_order": 10,
+                                    "pcode": 91,
+                                    "source_column": "procedure10"
+                                },
+                                {
+                                    "display_order": 11,
+                                    "pcode": 4,
+                                    "source_column": "procedure11"
+                                },
+                                {
+                                    "display_order": 12,
+                                    "pcode": 82,
+                                    "source_column": "procedure12"
+                                },
+                                {
+                                    "display_order": 13,
+                                    "pcode": 8,
+                                    "source_column": "procedure13"
+                                },
+                                {
+                                    "display_order": 14,
+                                    "pcode": 57,
+                                    "source_column": "procedure14"
+                                },
+                                {
+                                    "display_order": 15,
+                                    "pcode": 71,
+                                    "source_column": "procedure15"
+                                },
+                                {
+                                    "display_order": 16,
+                                    "pcode": 61,
+                                    "source_column": "procedure16"
+                                },
+                                {
+                                    "display_order": 17,
+                                    "pcode": 60,
+                                    "source_column": "procedure17"
+                                },
+                                {
+                                    "display_order": 18,
+                                    "pcode": 59,
+                                    "source_column": "procedure18"
+                                },
+                                {
+                                    "display_order": 19,
+                                    "pcode": 62,
+                                    "source_column": "procedure19"
+                                },
+                                {
+                                    "display_order": 20,
+                                    "pcode": 64,
+                                    "source_column": "procedure20"
+                                },
+                                {
+                                    "display_order": 21,
+                                    "pcode": 72,
+                                    "source_column": "procedure21"
+                                },
+                                {
+                                    "display_order": 22,
+                                    "pcode": 63,
+                                    "source_column": "procedure22"
+                                },
+                                {
+                                    "display_order": 23,
+                                    "pcode": 73,
+                                    "source_column": "procedure23"
+                                },
+                                {
+                                    "display_order": 24,
+                                    "pcode": 65,
+                                    "source_column": "procedure24"
+                                },
+                                {
+                                    "display_order": 25,
+                                    "pcode": 83,
+                                    "source_column": "procedure25"
+                                },
+                                {
+                                    "display_order": 26,
+                                    "pcode": 84,
+                                    "source_column": "procedure26"
+                                },
+                                {
+                                    "display_order": 27,
+                                    "pcode": 74,
+                                    "source_column": "procedure27"
+                                },
+                                {
+                                    "display_order": 28,
+                                    "pcode": 76,
+                                    "source_column": "procedure28"
+                                },
+                                {
+                                    "display_order": 29,
+                                    "pcode": 77,
+                                    "source_column": "procedure29"
+                                },
+                                {
+                                    "display_order": 30,
+                                    "pcode": 75,
+                                    "source_column": "procedure30"
+                                },
+                                {
+                                    "display_order": 31,
+                                    "pcode": 66,
+                                    "source_column": "procedure31"
+                                },
+                                {
+                                    "display_order": 32,
+                                    "pcode": 78,
+                                    "source_column": "procedure32"
+                                },
+                                {
+                                    "display_order": 33,
+                                    "pcode": 79,
+                                    "source_column": "procedure33"
+                                },
+                                {
+                                    "display_order": 34,
+                                    "pcode": 81,
+                                    "source_column": "procedure34"
+                                },
+                                {
+                                    "display_order": 35,
+                                    "pcode": 80,
+                                    "source_column": "procedure35"
+                                },
+                                {
+                                    "display_order": 36,
+                                    "pcode": 68,
+                                    "source_column": "procedure36"
+                                }
+                            ],
+                            "source_file": "MedicaidMSDRGPro_StateProcedures.xlsx"
+                        },
+                        {
+                            "state_name": "MedicaidMSDRGPro",
+                            "state_acronym": "NC",
+                            "state_id": "NC",
+                            "effective_date": 20250401,
+                            "action": "ADD",
+                            "procedures": [
+                                {
+                                    "display_order": 1,
+                                    "pcode": 6,
+                                    "source_column": "procedure1"
+                                },
+                                {
+                                    "display_order": 2,
+                                    "pcode": 51,
+                                    "source_column": "procedure2"
+                                },
+                                {
+                                    "display_order": 3,
+                                    "pcode": 1,
+                                    "source_column": "procedure3"
+                                },
+                                {
+                                    "display_order": 4,
+                                    "pcode": 2,
+                                    "source_column": "procedure4"
+                                },
+                                {
+                                    "display_order": 5,
+                                    "pcode": 3,
+                                    "source_column": "procedure5"
+                                },
+                                {
+                                    "display_order": 6,
+                                    "pcode": 9,
+                                    "source_column": "procedure6"
+                                },
+                                {
+                                    "display_order": 7,
+                                    "pcode": 53,
+                                    "source_column": "procedure7"
+                                },
+                                {
+                                    "display_order": 8,
+                                    "pcode": 54,
+                                    "source_column": "procedure8"
+                                },
+                                {
+                                    "display_order": 9,
+                                    "pcode": 86,
+                                    "source_column": "procedure9"
+                                },
+                                {
+                                    "display_order": 10,
+                                    "pcode": 5,
+                                    "source_column": "procedure10"
+                                },
+                                {
+                                    "display_order": 11,
+                                    "pcode": 87,
+                                    "source_column": "procedure11"
+                                },
+                                {
+                                    "display_order": 12,
+                                    "pcode": 88,
+                                    "source_column": "procedure12"
+                                },
+                                {
+                                    "display_order": 13,
+                                    "pcode": 85,
+                                    "source_column": "procedure13"
+                                },
+                                {
+                                    "display_order": 14,
+                                    "pcode": 92,
+                                    "source_column": "procedure14"
+                                },
+                                {
+                                    "display_order": 15,
+                                    "pcode": 4,
+                                    "source_column": "procedure15"
+                                },
+                                {
+                                    "display_order": 16,
+                                    "pcode": 89,
+                                    "source_column": "procedure16"
+                                },
+                                {
+                                    "display_order": 17,
+                                    "pcode": 90,
+                                    "source_column": "procedure17"
+                                },
+                                {
+                                    "display_order": 18,
+                                    "pcode": 57,
+                                    "source_column": "procedure18"
+                                },
+                                {
+                                    "display_order": 19,
+                                    "pcode": 93,
+                                    "source_column": "procedure19"
+                                },
+                                {
+                                    "display_order": 20,
+                                    "pcode": 83,
+                                    "source_column": "procedure20"
+                                },
+                                {
+                                    "display_order": 21,
+                                    "pcode": 76,
+                                    "source_column": "procedure21"
+                                },
+                                {
+                                    "display_order": 22,
+                                    "pcode": 75,
+                                    "source_column": "procedure22"
+                                },
+                                {
+                                    "display_order": 23,
+                                    "pcode": 62,
+                                    "source_column": "procedure23"
+                                },
+                                {
+                                    "display_order": 24,
+                                    "pcode": 64,
+                                    "source_column": "procedure24"
+                                },
+                                {
+                                    "display_order": 25,
+                                    "pcode": 94,
+                                    "source_column": "procedure25"
+                                },
+                                {
+                                    "display_order": 26,
+                                    "pcode": 95,
+                                    "source_column": "procedure26"
+                                },
+                                {
+                                    "display_order": 27,
+                                    "pcode": 73,
+                                    "source_column": "procedure27"
+                                },
+                                {
+                                    "display_order": 28,
+                                    "pcode": 65,
+                                    "source_column": "procedure28"
+                                },
+                                {
+                                    "display_order": 29,
+                                    "pcode": 71,
+                                    "source_column": "procedure29"
+                                },
+                                {
+                                    "display_order": 30,
+                                    "pcode": 61,
+                                    "source_column": "procedure30"
+                                },
+                                {
+                                    "display_order": 31,
+                                    "pcode": 60,
+                                    "source_column": "procedure31"
+                                },
+                                {
+                                    "display_order": 32,
+                                    "pcode": 59,
+                                    "source_column": "procedure32"
+                                },
+                                {
+                                    "display_order": 33,
+                                    "pcode": 98,
+                                    "source_column": "procedure33"
+                                },
+                                {
+                                    "display_order": 34,
+                                    "pcode": 99,
+                                    "source_column": "procedure34"
+                                },
+                                {
+                                    "display_order": 35,
+                                    "pcode": 68,
+                                    "source_column": "procedure35"
+                                },
+                                {
+                                    "display_order": 36,
+                                    "pcode": 0,
+                                    "source_column": "procedure36"
+                                },
+                                {
+                                    "display_order": 37,
+                                    "pcode": 0,
+                                    "source_column": "procedure37"
+                                },
+                                {
+                                    "display_order": 38,
+                                    "pcode": 0,
+                                    "source_column": "procedure38"
+                                },
+                                {
+                                    "display_order": 39,
+                                    "pcode": 0,
+                                    "source_column": "procedure39"
+                                },
+                                {
+                                    "display_order": 40,
+                                    "pcode": 0,
+                                    "source_column": "procedure40"
+                                },
+                                {
+                                    "display_order": 41,
+                                    "pcode": 0,
+                                    "source_column": "procedure41"
+                                },
+                                {
+                                    "display_order": 42,
+                                    "pcode": 0,
+                                    "source_column": "procedure42"
+                                },
+                                {
+                                    "display_order": 43,
+                                    "pcode": 0,
+                                    "source_column": "procedure43"
+                                },
+                                {
+                                    "display_order": 44,
+                                    "pcode": 0,
+                                    "source_column": "procedure44"
+                                },
+                                {
+                                    "display_order": 45,
+                                    "pcode": 0,
+                                    "source_column": "procedure45"
+                                },
+                                {
+                                    "display_order": 46,
+                                    "pcode": 0,
+                                    "source_column": "procedure46"
+                                },
+                                {
+                                    "display_order": 47,
+                                    "pcode": 0,
+                                    "source_column": "procedure47"
+                                },
+                                {
+                                    "display_order": 48,
+                                    "pcode": 0,
+                                    "source_column": "procedure48"
+                                },
+                                {
+                                    "display_order": 49,
+                                    "pcode": 0,
+                                    "source_column": "procedure49"
+                                },
+                                {
+                                    "display_order": 50,
+                                    "pcode": 0,
+                                    "source_column": "procedure50"
+                                }
+                            ],
+                            "source_file": "MedicaidMSDRGPro_StateProcedures.xlsx"
+                        }
+                    ],
+                    "procedure_variables": [
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Return Code 25: Non-Payment Claim",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 1,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Return Code 21: Invalid POA Coding",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 2,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Return Code 27: Never Event",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 3,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Return Code 08: Transfer Claim Zero-Divide Error",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 4,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Return Code 73 & 07: Lookup DRG Weight and Stats with Return Code 07/73",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 5,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Return Code 86: Code Table Not Found",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 6,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Return Code 97: Error Reading Grouper Files",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 7,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Return Code 16: Invalid Billing of ALC Days",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 8,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "ADD",
+                            "pdescription": {
+                                "value": "Return Code 13: Same Day Discharge",
+                                "updated": true
+                            },
+                            "pcode": {
+                                "value": 9,
+                                "updated": true
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Claim Level Code Table Lookup",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 51,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "ADD",
+                            "pdescription": {
+                                "value": "Procedure Level Code Table Lookup",
+                                "updated": true
+                            },
+                            "pcode": {
+                                "value": 53,
+                                "updated": true
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "HCPCs Level Code Table Lookup",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 54,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Group Medicaid Specific DRGs (OK)",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 55,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Collect Claim Mask Attributes (OK)",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 56,
+                                "updated": false
+                            },
+                            "variables": [
+                                {
+                                    "variable_name": "aageindays",
+                                    "updated": false
+                                }
+                            ],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Base Rate",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 57,
+                                "updated": false
+                            },
+                            "variables": [
+                                {
+                                    "variable_name": "base",
+                                    "updated": false
+                                }
+                            ],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Calculate Transfer LOS as (LOS +1)",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 58,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Pay Transfer 1",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 59,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Set Transfer Base as Inlier/DRG MLOS",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 60,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Set Transfer as Inlier/DRG MLOS",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 61,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Calculate True Costs",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 62,
+                                "updated": false
+                            },
+                            "variables": [
+                                {
+                                    "variable_name": "rcc",
+                                    "updated": false
+                                }
+                            ],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Calculate Cost Outlier Threshold",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 63,
+                                "updated": false
+                            },
+                            "variables": [
+                                {
+                                    "variable_name": "cost_threshold",
+                                    "updated": false
+                                }
+                            ],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Set Marginal Cost Factor",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 64,
+                                "updated": false
+                            },
+                            "variables": [
+                                {
+                                    "variable_name": "mcf1",
+                                    "updated": false
+                                }
+                            ],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Calculate Cost Outlier Addon Payment",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 65,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Set Outlier Output",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 66,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Charge Cap",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 67,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Markup",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 68,
+                                "updated": false
+                            },
+                            "variables": [
+                                {
+                                    "variable_name": "markup",
+                                    "updated": false
+                                }
+                            ],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Bill Type Per Diem 1 Reimbursement",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 69,
+                                "updated": false
+                            },
+                            "variables": [
+                                {
+                                    "variable_name": "perdiem1",
+                                    "updated": false
+                                }
+                            ],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Group Medicaid Specific DRGs (IA)",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 70,
+                                "updated": false
+                            },
+                            "variables": [
+                                {
+                                    "variable_name": "fac_type",
+                                    "updated": false
+                                }
+                            ],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Calculate Transfer LOS as (LOS)",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 71,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Calculate Cost Outlier Threshold 2 (flat base * weight * factor)",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 72,
+                                "updated": false
+                            },
+                            "variables": [
+                                {
+                                    "variable_name": "base2",
+                                    "updated": false
+                                },
+                                {
+                                    "variable_name": "factor1",
+                                    "updated": false
+                                }
+                            ],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Set Cost Outlier Threshold (max of Threshold1 or Threshold2)",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 73,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Calculate Day Outlier LOS as (LOS - Non-Covered Days)",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 74,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Calculate Long Stay Outlier Addon Payment",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 75,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Set Long Stay Per Diem as Inlier/DRG MLOS",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 76,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Set Covered Days 1",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 77,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Set Short Stay Per Diem as Inlier/DRG MLOS",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 78,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Calculate Short Stay Outlier Addon Payment",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 79,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Additional Payment",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 80,
+                                "updated": false
+                            },
+                            "variables": [
+                                {
+                                    "variable_name": "pol_addon1",
+                                    "updated": false
+                                }
+                            ],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Apply Short Stay Payment",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 81,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Determine Non-covered Days",
+                                "updated": false
+                            },
+                            "pcode": {
+                                "value": 82,
+                                "updated": false
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "UPDATE",
+                            "pdescription": {
+                                "value": "Set Long and Short Stay Marginal Cost Factors",
+                                "updated": true
+                            },
+                            "pcode": {
+                                "value": 83,
+                                "updated": false
+                            },
+                            "variables": [
+                                {
+                                    "variable_name": "mcf2",
+                                    "updated": false
+                                }
+                            ],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "ADD",
+                            "pdescription": {
+                                "value": "Set Short Stay Marginal Cost Factor",
+                                "updated": true
+                            },
+                            "pcode": {
+                                "value": 84,
+                                "updated": true
+                            },
+                            "variables": [
+                                {
+                                    "variable_name": "mcf3",
+                                    "updated": true
+                                }
+                            ],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "ADD",
+                            "pdescription": {
+                                "value": "Set transfer flag (NC)",
+                                "updated": true
+                            },
+                            "pcode": {
+                                "value": 85,
+                                "updated": true
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "ADD",
+                            "pdescription": {
+                                "value": "Group Medicaid-Specific DRGs (NC)",
+                                "updated": true
+                            },
+                            "pcode": {
+                                "value": 86,
+                                "updated": true
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "ADD",
+                            "pdescription": {
+                                "value": "DRG Per Diem 1",
+                                "updated": true
+                            },
+                            "pcode": {
+                                "value": 87,
+                                "updated": true
+                            },
+                            "variables": [
+                                {
+                                    "variable_name": "perdiem1",
+                                    "updated": true
+                                }
+                            ],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "ADD",
+                            "pdescription": {
+                                "value": "DRG Per Diem 2",
+                                "updated": true
+                            },
+                            "pcode": {
+                                "value": 88,
+                                "updated": true
+                            },
+                            "variables": [
+                                {
+                                    "variable_name": "perdiem2",
+                                    "updated": true
+                                }
+                            ],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "ADD",
+                            "pdescription": {
+                                "value": "Combined Direct and Indirect Medical Education",
+                                "updated": true
+                            },
+                            "pcode": {
+                                "value": 89,
+                                "updated": true
+                            },
+                            "variables": [
+                                {
+                                    "variable_name": "meded",
+                                    "updated": true
+                                },
+                                {
+                                    "variable_name": "ime",
+                                    "updated": true
+                                }
+                            ],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "ADD",
+                            "pdescription": {
+                                "value": "Apply Medical Education to Base",
+                                "updated": true
+                            },
+                            "pcode": {
+                                "value": 90,
+                                "updated": true
+                            },
+                            "variables": [
+                                {
+                                    "variable_name": "base",
+                                    "updated": true
+                                }
+                            ],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "ADD",
+                            "pdescription": {
+                                "value": "Long Stay Outlier Eligibility",
+                                "updated": true
+                            },
+                            "pcode": {
+                                "value": 91,
+                                "updated": true
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "ADD",
+                            "pdescription": {
+                                "value": "Long Stay Outlier Eligibility (Children) (NC)",
+                                "updated": true
+                            },
+                            "pcode": {
+                                "value": 92,
+                                "updated": true
+                            },
+                            "variables": [
+                                {
+                                    "variable_name": "cut_age1",
+                                    "updated": true
+                                }
+                            ],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "ADD",
+                            "pdescription": {
+                                "value": "Set Covered Days 2",
+                                "updated": true
+                            },
+                            "pcode": {
+                                "value": 93,
+                                "updated": true
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "ADD",
+                            "pdescription": {
+                                "value": "Calculate Cost Outlier Threshold 2 (flat rate)",
+                                "updated": true
+                            },
+                            "pcode": {
+                                "value": 94,
+                                "updated": true
+                            },
+                            "variables": [
+                                {
+                                    "variable_name": "cost_threshold",
+                                    "updated": true
+                                }
+                            ],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "ADD",
+                            "pdescription": {
+                                "value": "Calculate Cost Outlier Threshold (DRG Rate)",
+                                "updated": true
+                            },
+                            "pcode": {
+                                "value": 95,
+                                "updated": true
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "ADD",
+                            "pdescription": {
+                                "value": "Set Outlier Output 2 (NC)",
+                                "updated": true
+                            },
+                            "pcode": {
+                                "value": 98,
+                                "updated": true
+                            },
+                            "variables": [],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "ADD",
+                            "pdescription": {
+                                "value": "Apply Claim Factor 2 (1 + Factor 2)",
+                                "updated": true
+                            },
+                            "pcode": {
+                                "value": 99,
+                                "updated": true
+                            },
+                            "variables": [
+                                {
+                                    "variable_name": "factor2",
+                                    "updated": true
+                                }
+                            ],
+                            "source_file": "MedicaidMSDRGPro_VariablesforProcedures.xlsx"
+                        }
+                    ],
+                    "sql_script": null,
+                    "validation": {
+                        "has_state_procedures_file": true,
+                        "has_variables_file": true,
+                        "has_sql_script_file": true,
+                        "state_procedures_records_count": 2,
+                        "procedure_variables_records_count": 55,
+                        "sql_script_loaded": false
+                    },
+                    "errors": [
+                        "Error reading SQL file V250300-v250301_RateManager.sql: cannot access local variable 'formatted_content' where it is not associated with a value"
+                    ]
+                }
+            ],
+            "V2509.01": [
+                {
+                    "update_folder": "MedicaidAPRPro",
+                    "status": "processed",
+                    "state_procedures": [
+                        {
+                            "state_name": "MedicaidAPRPro",
+                            "state_acronym": "IN",
+                            "state_id": "IN",
+                            "effective_date": 20210701,
+                            "action": "UPDATE",
+                            "procedures": [
+                                {
+                                    "display_order": 1,
+                                    "pcode": 3,
+                                    "source_column": "procedure1"
+                                },
+                                {
+                                    "display_order": 2,
+                                    "pcode": 2,
+                                    "source_column": "procedure2"
+                                },
+                                {
+                                    "display_order": 3,
+                                    "pcode": 1,
+                                    "source_column": "procedure3"
+                                },
+                                {
+                                    "display_order": 4,
+                                    "pcode": 1003,
+                                    "source_column": "procedure4"
+                                },
+                                {
+                                    "display_order": 5,
+                                    "pcode": 62,
+                                    "source_column": "procedure5"
+                                },
+                                {
+                                    "display_order": 6,
+                                    "pcode": 60,
+                                    "source_column": "procedure6"
+                                },
+                                {
+                                    "display_order": 7,
+                                    "pcode": 61,
+                                    "source_column": "procedure7"
+                                },
+                                {
+                                    "display_order": 8,
+                                    "pcode": 63,
+                                    "source_column": "procedure8"
+                                },
+                                {
+                                    "display_order": 9,
+                                    "pcode": 200,
+                                    "source_column": "procedure9"
+                                },
+                                {
+                                    "display_order": 10,
+                                    "pcode": 4,
+                                    "source_column": "procedure10"
+                                },
+                                {
+                                    "display_order": 11,
+                                    "pcode": 55,
+                                    "source_column": "procedure11"
+                                },
+                                {
+                                    "display_order": 12,
+                                    "pcode": 309,
+                                    "source_column": "procedure12"
+                                },
+                                {
+                                    "display_order": 13,
+                                    "pcode": 205,
+                                    "source_column": "procedure13"
+                                },
+                                {
+                                    "display_order": 14,
+                                    "pcode": 64,
+                                    "source_column": "procedure14"
+                                },
+                                {
+                                    "display_order": 15,
+                                    "pcode": 300,
+                                    "source_column": "procedure15"
+                                },
+                                {
+                                    "display_order": 16,
+                                    "pcode": 302,
+                                    "source_column": "procedure16"
+                                },
+                                {
+                                    "display_order": 17,
+                                    "pcode": 94,
+                                    "source_column": "procedure17"
+                                },
+                                {
+                                    "display_order": 18,
+                                    "pcode": 65,
+                                    "source_column": "procedure18"
+                                },
+                                {
+                                    "display_order": 19,
+                                    "pcode": 66,
+                                    "source_column": "procedure19"
+                                },
+                                {
+                                    "display_order": 20,
+                                    "pcode": 500,
+                                    "source_column": "procedure20"
+                                },
+                                {
+                                    "display_order": 21,
+                                    "pcode": 502,
+                                    "source_column": "procedure21"
+                                }
+                            ],
+                            "source_file": "MedicaidAPRPro_StateProcedures.xlsx"
+                        },
+                        {
+                            "state_name": "MedicaidAPRPro",
+                            "state_acronym": null,
+                            "state_id": "IN",
+                            "effective_date": 20220601,
+                            "action": "UPDATE",
+                            "procedures": [
+                                {
+                                    "display_order": 17,
+                                    "pcode": 94,
+                                    "source_column": "procedure17"
+                                },
+                                {
+                                    "display_order": 18,
+                                    "pcode": 93,
+                                    "source_column": "procedure18"
+                                },
+                                {
+                                    "display_order": 19,
+                                    "pcode": 65,
+                                    "source_column": "procedure19"
+                                },
+                                {
+                                    "display_order": 20,
+                                    "pcode": 66,
+                                    "source_column": "procedure20"
+                                },
+                                {
+                                    "display_order": 21,
+                                    "pcode": 500,
+                                    "source_column": "procedure21"
+                                },
+                                {
+                                    "display_order": 22,
+                                    "pcode": 502,
+                                    "source_column": "procedure22"
+                                }
+                            ],
+                            "source_file": "MedicaidAPRPro_StateProcedures.xlsx"
+                        },
+                        {
+                            "state_name": "MedicaidAPRPro",
+                            "state_acronym": null,
+                            "state_id": "IN",
+                            "effective_date": 20250101,
+                            "action": "UPDATE",
+                            "procedures": [
+                                {
+                                    "display_order": 17,
+                                    "pcode": 94,
+                                    "source_column": "procedure17"
+                                },
+                                {
+                                    "display_order": 18,
+                                    "pcode": 93,
+                                    "source_column": "procedure18"
+                                },
+                                {
+                                    "display_order": 19,
+                                    "pcode": 65,
+                                    "source_column": "procedure19"
+                                },
+                                {
+                                    "display_order": 20,
+                                    "pcode": 66,
+                                    "source_column": "procedure20"
+                                },
+                                {
+                                    "display_order": 21,
+                                    "pcode": 513,
+                                    "source_column": "procedure21"
+                                },
+                                {
+                                    "display_order": 22,
+                                    "pcode": 500,
+                                    "source_column": "procedure22"
+                                },
+                                {
+                                    "display_order": 23,
+                                    "pcode": 502,
+                                    "source_column": "procedure23"
+                                }
+                            ],
+                            "source_file": "MedicaidAPRPro_StateProcedures.xlsx"
+                        }
+                    ],
+                    "procedure_variables": [
+                        {
+                            "action": "ADD",
+                            "pdescription": {
+                                "value": "Provider Adjustment Factor with Age Requirement, Outlier Only (1 + Adjustor)",
+                                "updated": true
+                            },
+                            "pcode": {
+                                "value": 93,
+                                "updated": true
+                            },
+                            "variables": [
+                                {
+                                    "variable_name": "cut_age",
+                                    "updated": true
+                                },
+                                {
+                                    "variable_name": "prov_adj",
+                                    "updated": true
+                                }
+                            ],
+                            "source_file": "MedicaidAPRPro_VariablesforProcedures.xlsx"
+                        },
+                        {
+                            "action": "ADD",
+                            "pdescription": {
+                                "value": "Provider Adjustment Factor with Age Requirement, Inlier Only (1 + Adjustor)",
+                                "updated": true
+                            },
+                            "pcode": {
+                                "value": 94,
+                                "updated": true
+                            },
+                            "variables": [
+                                {
+                                    "variable_name": "cut_age",
+                                    "updated": true
+                                },
+                                {
+                                    "variable_name": "prov_adj",
+                                    "updated": true
+                                }
+                            ],
+                            "source_file": "MedicaidAPRPro_VariablesforProcedures.xlsx"
+                        }
+                    ],
+                    "sql_script": null,
+                    "validation": {
+                        "has_state_procedures_file": true,
+                        "has_variables_file": true,
+                        "has_sql_script_file": true,
+                        "state_procedures_records_count": 3,
+                        "procedure_variables_records_count": 2,
+                        "sql_script_loaded": false
+                    },
+                    "errors": [
+                        "Error reading SQL file V250900-V250901_RateManager.sql: cannot access local variable 'formatted_content' where it is not associated with a value"
+                    ]
+                }
+            ]
+        },
+        "2026": {
+            "V2605.01": [
+                {
+                    "update_folder": "MedicaidAPGPro_StateProcedure",
+                    "status": "processed",
+                    "state_procedures": [
+                        {
+                            "state_name": "MedicaidAPGPro",
+                            "state_acronym": "VA",
+                            "state_id": "VA",
+                            "effective_date": "2025-07-01 00:00:00",
+                            "action": "ADD",
+                            "procedures": [
+                                {
+                                    "display_order": 1,
+                                    "pcode": 1,
+                                    "source_column": "procedure1"
+                                },
+                                {
+                                    "display_order": 2,
+                                    "pcode": 2,
+                                    "source_column": "procedure2"
+                                },
+                                {
+                                    "display_order": 3,
+                                    "pcode": 116,
+                                    "source_column": "procedure3"
+                                },
+                                {
+                                    "display_order": 4,
+                                    "pcode": 3,
+                                    "source_column": "procedure4"
+                                },
+                                {
+                                    "display_order": 5,
+                                    "pcode": 50,
+                                    "source_column": "procedure5"
+                                },
+                                {
+                                    "display_order": 6,
+                                    "pcode": 51,
+                                    "source_column": "procedure6"
+                                },
+                                {
+                                    "display_order": 7,
+                                    "pcode": 52,
+                                    "source_column": "procedure7"
+                                },
+                                {
+                                    "display_order": 8,
+                                    "pcode": 55,
+                                    "source_column": "procedure8"
+                                },
+                                {
+                                    "display_order": 9,
+                                    "pcode": 57,
+                                    "source_column": "procedure9"
+                                },
+                                {
+                                    "display_order": 10,
+                                    "pcode": 100,
+                                    "source_column": "procedure10"
+                                },
+                                {
+                                    "display_order": 11,
+                                    "pcode": 102,
+                                    "source_column": "procedure11"
+                                },
+                                {
+                                    "display_order": 12,
+                                    "pcode": 103,
+                                    "source_column": "procedure12"
+                                },
+                                {
+                                    "display_order": 13,
+                                    "pcode": 137,
+                                    "source_column": "procedure13"
+                                },
+                                {
+                                    "display_order": 14,
+                                    "pcode": 118,
+                                    "source_column": "procedure14"
+                                },
+                                {
+                                    "display_order": 15,
+                                    "pcode": 127,
+                                    "source_column": "procedure15"
+                                },
+                                {
+                                    "display_order": 16,
+                                    "pcode": 149,
+                                    "source_column": "procedure16"
+                                },
+                                {
+                                    "display_order": 17,
+                                    "pcode": 105,
+                                    "source_column": "procedure17"
+                                },
+                                {
+                                    "display_order": 18,
+                                    "pcode": 104,
+                                    "source_column": "procedure18"
+                                },
+                                {
+                                    "display_order": 19,
+                                    "pcode": 106,
+                                    "source_column": "procedure19"
+                                },
+                                {
+                                    "display_order": 20,
+                                    "pcode": 107,
+                                    "source_column": "procedure20"
+                                },
+                                {
+                                    "display_order": 21,
+                                    "pcode": 108,
+                                    "source_column": "procedure21"
+                                },
+                                {
+                                    "display_order": 22,
+                                    "pcode": 109,
+                                    "source_column": "procedure22"
+                                },
+                                {
+                                    "display_order": 23,
+                                    "pcode": 110,
+                                    "source_column": "procedure23"
+                                },
+                                {
+                                    "display_order": 24,
+                                    "pcode": 101,
+                                    "source_column": "procedure24"
+                                },
+                                {
+                                    "display_order": 25,
+                                    "pcode": 132,
+                                    "source_column": "procedure25"
+                                },
+                                {
+                                    "display_order": 26,
+                                    "pcode": 111,
+                                    "source_column": "procedure26"
+                                },
+                                {
+                                    "display_order": 27,
+                                    "pcode": 56,
+                                    "source_column": "procedure27"
+                                },
+                                {
+                                    "display_order": 28,
+                                    "pcode": 112,
+                                    "source_column": "procedure28"
+                                },
+                                {
+                                    "display_order": 29,
+                                    "pcode": 113,
+                                    "source_column": "procedure29"
+                                }
+                            ],
+                            "source_file": "MedicaidAPGPro_StateProcedures.xlsx"
+                        }
+                    ],
+                    "procedure_variables": [],
+                    "sql_script": null,
+                    "validation": {
+                        "has_state_procedures_file": true,
+                        "has_variables_file": false,
+                        "has_sql_script_file": true,
+                        "state_procedures_records_count": 1,
+                        "procedure_variables_records_count": 0,
+                        "sql_script_loaded": false
+                    },
+                    "errors": [
+                        "Error reading SQL file v260500-V260501_RateManager.sql: cannot access local variable 'formatted_content' where it is not associated with a value"
+                    ]
+                },
+                {
+                    "update_folder": "PhysicianPro_StateProcedure",
+                    "status": "processed",
+                    "state_procedures": [
+                        {
+                            "state_name": "PhysicianPro",
+                            "state_acronym": null,
+                            "state_id": "MR",
+                            "effective_date": "2026-01-01 00:00:00",
+                            "action": "UPDATE",
+                            "procedures": [
+                                {
+                                    "display_order": 3,
+                                    "pcode": "007",
+                                    "source_column": "procedure3"
+                                },
+                                {
+                                    "display_order": 4,
+                                    "pcode": "006",
+                                    "source_column": "procedure4"
+                                },
+                                {
+                                    "display_order": 23,
+                                    "pcode": "112",
+                                    "source_column": "procedure23"
+                                },
+                                {
+                                    "display_order": 24,
+                                    "pcode": "101",
+                                    "source_column": "procedure24"
+                                },
+                                {
+                                    "display_order": 25,
+                                    "pcode": "064",
+                                    "source_column": "procedure25"
+                                },
+                                {
+                                    "display_order": 26,
+                                    "pcode": "107",
+                                    "source_column": "procedure26"
+                                },
+                                {
+                                    "display_order": 27,
+                                    "pcode": "108",
+                                    "source_column": "procedure27"
+                                },
+                                {
+                                    "display_order": 44,
+                                    "pcode": "132",
+                                    "source_column": "procedure44"
+                                },
+                                {
+                                    "display_order": 45,
+                                    "pcode": "133",
+                                    "source_column": "procedure45"
+                                },
+                                {
+                                    "display_order": 46,
+                                    "pcode": "136",
+                                    "source_column": "procedure46"
+                                },
+                                {
+                                    "display_order": 47,
+                                    "pcode": "135",
+                                    "source_column": "procedure47"
+                                },
+                                {
+                                    "display_order": 48,
+                                    "pcode": "134",
+                                    "source_column": "procedure48"
+                                },
+                                {
+                                    "display_order": 49,
+                                    "pcode": "118",
+                                    "source_column": "procedure49"
+                                },
+                                {
+                                    "display_order": 50,
+                                    "pcode": "119",
+                                    "source_column": "procedure50"
+                                },
+                                {
+                                    "display_order": 51,
+                                    "pcode": "109",
+                                    "source_column": "procedure51"
+                                },
+                                {
+                                    "display_order": 52,
+                                    "pcode": "165",
+                                    "source_column": "procedure52"
+                                },
+                                {
+                                    "display_order": 53,
+                                    "pcode": "128",
+                                    "source_column": "procedure53"
+                                },
+                                {
+                                    "display_order": 54,
+                                    "pcode": "066",
+                                    "source_column": "procedure54"
+                                },
+                                {
+                                    "display_order": 55,
+                                    "pcode": "122",
+                                    "source_column": "procedure55"
+                                },
+                                {
+                                    "display_order": 56,
+                                    "pcode": "137",
+                                    "source_column": "procedure56"
+                                },
+                                {
+                                    "display_order": 57,
+                                    "pcode": "142",
+                                    "source_column": "procedure57"
+                                },
+                                {
+                                    "display_order": 58,
+                                    "pcode": "143",
+                                    "source_column": "procedure58"
+                                },
+                                {
+                                    "display_order": 59,
+                                    "pcode": "144",
+                                    "source_column": "procedure59"
+                                },
+                                {
+                                    "display_order": 60,
+                                    "pcode": "145",
+                                    "source_column": "procedure60"
+                                },
+                                {
+                                    "display_order": 61,
+                                    "pcode": "146",
+                                    "source_column": "procedure61"
+                                },
+                                {
+                                    "display_order": 62,
+                                    "pcode": "148",
+                                    "source_column": "procedure62"
+                                },
+                                {
+                                    "display_order": 63,
+                                    "pcode": "149",
+                                    "source_column": "procedure63"
+                                },
+                                {
+                                    "display_order": 64,
+                                    "pcode": "150",
+                                    "source_column": "procedure64"
+                                },
+                                {
+                                    "display_order": 65,
+                                    "pcode": "151",
+                                    "source_column": "procedure65"
+                                },
+                                {
+                                    "display_order": 66,
+                                    "pcode": "153",
+                                    "source_column": "procedure66"
+                                },
+                                {
+                                    "display_order": 67,
+                                    "pcode": "155",
+                                    "source_column": "procedure67"
+                                },
+                                {
+                                    "display_order": 68,
+                                    "pcode": "178",
+                                    "source_column": "procedure68"
+                                },
+                                {
+                                    "display_order": 69,
+                                    "pcode": "170",
+                                    "source_column": "procedure69"
+                                },
+                                {
+                                    "display_order": 70,
+                                    "pcode": "172",
+                                    "source_column": "procedure70"
+                                },
+                                {
+                                    "display_order": 71,
+                                    "pcode": "173",
+                                    "source_column": "procedure71"
+                                },
+                                {
+                                    "display_order": 72,
+                                    "pcode": "174",
+                                    "source_column": "procedure72"
+                                },
+                                {
+                                    "display_order": 73,
+                                    "pcode": "175",
+                                    "source_column": "procedure73"
+                                },
+                                {
+                                    "display_order": 74,
+                                    "pcode": "115",
+                                    "source_column": "procedure74"
+                                },
+                                {
+                                    "display_order": 75,
+                                    "pcode": "138",
+                                    "source_column": "procedure75"
+                                },
+                                {
+                                    "display_order": 76,
+                                    "pcode": "139",
+                                    "source_column": "procedure76"
+                                },
+                                {
+                                    "display_order": 77,
+                                    "pcode": "124",
+                                    "source_column": "procedure77"
+                                },
+                                {
+                                    "display_order": 78,
+                                    "pcode": "126",
+                                    "source_column": "procedure78"
+                                },
+                                {
+                                    "display_order": 79,
+                                    "pcode": "065",
+                                    "source_column": "procedure79"
+                                },
+                                {
+                                    "display_order": 80,
+                                    "pcode": "158",
+                                    "source_column": "procedure80"
+                                },
+                                {
+                                    "display_order": 81,
+                                    "pcode": "157",
+                                    "source_column": "procedure81"
+                                },
+                                {
+                                    "display_order": 82,
+                                    "pcode": "156",
+                                    "source_column": "procedure82"
+                                },
+                                {
+                                    "display_order": 83,
+                                    "pcode": "154",
+                                    "source_column": "procedure83"
+                                },
+                                {
+                                    "display_order": 84,
+                                    "pcode": "159",
+                                    "source_column": "procedure84"
+                                },
+                                {
+                                    "display_order": 85,
+                                    "pcode": "160",
+                                    "source_column": "procedure85"
+                                },
+                                {
+                                    "display_order": 86,
+                                    "pcode": "161",
+                                    "source_column": "procedure86"
+                                },
+                                {
+                                    "display_order": 87,
+                                    "pcode": "162",
+                                    "source_column": "procedure87"
+                                },
+                                {
+                                    "display_order": 88,
+                                    "pcode": "163",
+                                    "source_column": "procedure88"
+                                },
+                                {
+                                    "display_order": 89,
+                                    "pcode": "164",
+                                    "source_column": "procedure89"
+                                },
+                                {
+                                    "display_order": 90,
+                                    "pcode": "166",
+                                    "source_column": "procedure90"
+                                },
+                                {
+                                    "display_order": 91,
+                                    "pcode": "152",
+                                    "source_column": "procedure91"
+                                },
+                                {
+                                    "display_order": 92,
+                                    "pcode": "141",
+                                    "source_column": "procedure92"
+                                },
+                                {
+                                    "display_order": 93,
+                                    "pcode": "140",
+                                    "source_column": "procedure93"
+                                },
+                                {
+                                    "display_order": 94,
+                                    "pcode": "167",
+                                    "source_column": "procedure94"
+                                },
+                                {
+                                    "display_order": 95,
+                                    "pcode": "168",
+                                    "source_column": "procedure95"
+                                },
+                                {
+                                    "display_order": 96,
+                                    "pcode": "169",
+                                    "source_column": "procedure96"
+                                },
+                                {
+                                    "display_order": 97,
+                                    "pcode": "104",
+                                    "source_column": "procedure97"
+                                },
+                                {
+                                    "display_order": 102,
+                                    "pcode": "116",
+                                    "source_column": "procedure102"
+                                },
+                                {
+                                    "display_order": 103,
+                                    "pcode": "117",
+                                    "source_column": "procedure103"
+                                },
+                                {
+                                    "display_order": 104,
+                                    "pcode": "182",
+                                    "source_column": "procedure104"
+                                },
+                                {
+                                    "display_order": 105,
+                                    "pcode": "125",
+                                    "source_column": "procedure105"
+                                },
+                                {
+                                    "display_order": 106,
+                                    "pcode": "105",
+                                    "source_column": "procedure106"
+                                },
+                                {
+                                    "display_order": 107,
+                                    "pcode": "184",
+                                    "source_column": "procedure107"
+                                },
+                                {
+                                    "display_order": 108,
+                                    "pcode": "127",
+                                    "source_column": "procedure108"
+                                },
+                                {
+                                    "display_order": 109,
+                                    "pcode": "114",
+                                    "source_column": "procedure109"
+                                }
+                            ],
+                            "source_file": "PhysicianPro_StateProcedures.xlsx"
+                        }
+                    ],
+                    "procedure_variables": [],
+                    "sql_script": null,
+                    "validation": {
+                        "has_state_procedures_file": true,
+                        "has_variables_file": false,
+                        "has_sql_script_file": true,
+                        "state_procedures_records_count": 1,
+                        "procedure_variables_records_count": 0,
+                        "sql_script_loaded": false
+                    },
+                    "errors": [
+                        "Error reading SQL file v260500-V260501_RateManager.sql: cannot access local variable 'formatted_content' where it is not associated with a value"
+                    ]
+                }
+            ]
+        }
+    },
+    "summary": {
+        "years_count": 2,
+        "versions_count": 4,
+        "update_folders_count": 5,
+        "processed_count": 5,
+        "skipped_count": 0,
+        "failed_count": 0
+    }
+}

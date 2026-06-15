@@ -776,10 +776,11 @@ def setup_logger(log_file_path: str) -> logging.Logger:
 # ------------------------------------------------------------------
 
 if __name__ == "__main__":
-    ROOT_FOLDER = r"../input_excels/ProPricerSheets"
-    OUTPUT_FILE = r"./out/canonical_output.json"
-    LOG_FILE = r"./out/canonical_output.log"
+    ROOT_FOLDER = r"./input_excels/ProPricerSheets"
+    OUTPUT_FILE = r"./output_jsons/canonical_output.json"
+    LOG_FILE    = r"./output_jsons/canonical_output.log"
 
+    os.makedirs("./output_jsons", exist_ok=True)
     logger = setup_logger(LOG_FILE)
     logger.info("Starting canonical JSON build...")
 
