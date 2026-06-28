@@ -2,19 +2,25 @@
 pandas>=2.2.0
 openpyxl>=3.1.0
 
-# OpenAI API & Networking (guaranteed matching async/sync clients)
-httpx>=0.27.0
-openai>=1.30.0
-
-# Environment Variable Management
-python-dotenv>=1.0.1
-
-#SQL connection
-pyodbc>=4.0.30
-
 # Web Application (FastAPI)
 fastapi>=0.104.0
 uvicorn[standard]>=0.24.0
 python-multipart>=0.0.6
 aiofiles>=23.2.0
 pydantic-settings>=2.0.0
+
+# --- Local SLM Execution Engine ---
+torch>=2.0.0
+transformers>=4.41.0
+accelerate>=0.20.3
+
+# --- Dense Retrieval & Embedding Models ---
+sentence-transformers>=2.2.2
+
+# --- Sparse Retrieval Core ---
+rank-bm25>=0.2.2
+
+# --- RAPTOR Clustering & Hybrid Math ---
+scikit-learn>=1.3.0
+numpy>=1.24.0
+

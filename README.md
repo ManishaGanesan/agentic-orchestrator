@@ -19,8 +19,10 @@ This repo has 3 major components:
 Use the Windows Python launcher py to build a venv
 1. create venv using the system Python (py chooses an installed Python 3)
     - py -3 -m venv .venv
+    - python3 -m venv venv (mac)
 2. activate
     - .\.venv\Scripts\Activate.ps1
+    - source venv/bin/activate (macos)
 3. Install dependencies - within the virtual env
     - python -m pip install -r requirements.txt
     - The -m enforces install within the selected virtual env

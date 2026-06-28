@@ -1,28 +1,26 @@
 """
-FastAPI Web Application for Excel to SQL Conversion
-Handles file uploads, version management, and SQL script generation
+web_app/main.py
 """
 import os
 import json
-from platform import processor
 import shutil
-from datetime import datetime
+import sys
 from pathlib import Path
 from typing import Optional, List
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException, BackgroundTasks
-from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
-import sys
-import subprocess
-sys.path.append(str(Path(__file__).parent.parent))
+import uvicorn
+
+ROOT_DIR = Path(__file__).parent.parent
+sys.path.append(str(ROOT_DIR))
+
 from dataset_builder.input_processor import InputProcessor
+# FIXED: Safe, clean import from your new core runner file
+from orchestrator.runner import execute_research_ablation_pipeline
+
 processor = InputProcessor()
-app = FastAPI(
-    title="Excel to SQL Converter",
-    description="AI-powered tool to convert Excel changes into SQL scripts",
-    version="1.0.0"
-)
+app = FastAPI(title="Automated Multi-Agent Excel-to-SQL Server", version="2.0.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -32,39 +30,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-UPLOAD_DIR = Path("input_excels")
+UPLOAD_DIR = ROOT_DIR / "input_excels"
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
-OUTPUT_DIR = Path("output_jsons")
+OUTPUT_DIR = ROOT_DIR / "output_jsons"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+LATEST_INPUT = {}
 
 @app.get("/", response_class=HTMLResponse)
 async def home():
-    """Serve the main HTML interface"""
-    html_file = Path("web_app/static/index.html")
+    html_file = ROOT_DIR / "web_app/static/index.html"
     if html_file.exists():
         return html_file.read_text(encoding="utf-8")
-    return """
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Excel to SQL Converter</title>
-    </head>
-    <body>
-        <h1>Excel to SQL Converter</h1>
-        <p>Web interface file not found. Please ensure static/index.html exists.</p>
-    </body>
-    </html>
-    """
-
-@app.get("/health")
-async def health_check():
-    """Health check endpoint"""
-    return {
-        "status": "healthy",
-        "timestamp": datetime.now().isoformat(),
-        "service": "excel-to-sql-converter"
-    }
+    return "<h1>Excel to SQL Converter</h1><p>Web static file index.html not found.</p>"
 
 @app.post("/api/upload")
 async def upload_files(
@@ -73,78 +51,57 @@ async def upload_files(
     story_id: Optional[str] = Form(None),
     files: List[UploadFile] = File(...)
 ):
-    """
-    Upload Excel files directly to input_excels/
-    """
     try:
         if not files:
             raise HTTPException(status_code=400, detail="No files provided")
 
-        uploaded_files = []
-
-        # for existing_file in UPLOAD_DIR.iterdir():
-        #     if existing_file.is_file():
-        #         existing_file.unlink()
         global LATEST_INPUT      
         LATEST_INPUT = {
             "previous_version": previous_version,
             "new_version": new_version,
             "story_id": story_id
         }
+
+        uploaded_files = []
         for file in files:
             if not file.filename.endswith((".xlsx", ".xlsm")):
-                raise HTTPException(
-                    status_code=400,
-                    detail=f"Invalid file type: {file.filename}"
-                )
-
+                raise HTTPException(status_code=400, detail=f"Invalid type: {file.filename}")
+            
             file_path = UPLOAD_DIR / file.filename
-
             with open(file_path, "wb") as buffer:
                 shutil.copyfileobj(file.file, buffer)
-
             uploaded_files.append(file.filename)
 
-        return {
-            "success": True,
-            "message": f"{len(files)} file(s) uploaded successfully",
-            "files": uploaded_files,
-            "previous_version": previous_version,
-            "new_version": new_version,
-            "story_id": story_id
-        }
-
+        return {"success": True, "files": uploaded_files, **LATEST_INPUT}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/api/process")
-async def process_files():
+async def process_files(background_tasks: BackgroundTasks, strategy: str = "hybrid"):
     try:
-        # Run processor
         result = processor.process_folder(str(UPLOAD_DIR))
 
-        # ✅ Merge metadata directly with original JSON
         final_output = {
             "previous_version": LATEST_INPUT.get("previous_version"),
             "new_version": LATEST_INPUT.get("new_version"),
             "story_id": LATEST_INPUT.get("story_id"),
+            "request": f"Generate SQL script updates matching User Story ID: {LATEST_INPUT.get('story_id')}",
             **result
         }
 
-        # ✅ Save in output folder
         output_path = OUTPUT_DIR / "output.json"
-
-        with open(output_path, "w") as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             json.dump(final_output, f, indent=2, default=str)
+
+        # Trigger background task loop seamlessly
+        background_tasks.add_task(execute_research_ablation_pipeline, strategy=strategy)
 
         return {
             "success": True,
-            "message": f"Processing completed. Output saved to {output_path}"
+            "message": f"Excel structural data parsed successfully. Agent optimization loop running offline via background tasks with retrieval variant: {strategy.upper()}."
         }
-
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-    
+
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

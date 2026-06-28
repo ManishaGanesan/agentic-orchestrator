@@ -1,30 +1,27 @@
-import pyodbc
+import sqlite3
 from typing import Dict, Any
 
 
 class ValidationAgent:
-    def __init__(self, connection_string: str):
-        self.conn = pyodbc.connect(connection_string)
+    def __init__(self, db_path: str):
+        self.conn = sqlite3.connect(db_path)
         self.cursor = self.conn.cursor()
 
     def test_connection(self) -> str:
-        self.cursor.execute("SELECT DB_NAME()")
+        self.cursor.execute("SELECT sqlite_version()")
         return self.cursor.fetchone()[0]
 
     def run_sql_in_transaction(self, sql_script: str) -> Dict[str, Any]:
         try:
-            self.cursor.execute("BEGIN TRANSACTION")
-
-            statements = [s.strip() for s in sql_script.split(";") if s.strip()]
-            for stmt in statements:
-                self.cursor.execute(stmt)
+            self.conn.execute("BEGIN")
+            self.conn.executescript(sql_script)
 
             # Add custom validation queries here if needed
             # example:
             # self.cursor.execute("SELECT ...")
             # validation_rows = self.cursor.fetchall()
 
-            self.cursor.execute("ROLLBACK")
+            self.conn.rollback()
             return {
                 "status": "PASS",
                 "error": None

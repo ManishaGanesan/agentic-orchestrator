@@ -1,7 +1,8 @@
 {
-  "previous_version": "V2505.01",
+  "previous_version": "V2605.01",
   "new_version": "V2606.00",
-  "story_id": "US1098275",
+  "story_id": "US1234567",
+  "request": "Generate SQL script updates matching User Story ID: US1234567",
   "state_procedures": [
     {
       "state_name": "PhysicianPro",
