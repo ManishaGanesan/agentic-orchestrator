@@ -2,6 +2,7 @@ import os
 import re
 import sqlite3
 from pathlib import Path
+from typing import Optional
 
 BASE_DIR = Path(__file__).resolve().parent
 TABLE_DIR = BASE_DIR / "tables"
@@ -43,7 +44,7 @@ def read_text(path: Path) -> str:
     raise ValueError(f"Unable to decode {path}")
 
 
-def normalize_type(sql_type: str, length: str | None) -> str:
+def normalize_type(sql_type: str, length: Optional[str]) -> str:
     base = sql_type.strip().lower()
     if base not in TYPE_MAP:
         return "TEXT"
@@ -93,35 +94,45 @@ def split_value_list(values_text: str) -> list[str]:
     current = []
     depth = 0
     in_quote = False
-    escape = False
-    for ch in values_text:
-        if escape:
+    i = 0
+    while i < len(values_text):
+        ch = values_text[i]
+        if in_quote:
             current.append(ch)
-            escape = False
+            if ch == "'":
+                if i + 1 < len(values_text) and values_text[i + 1] == "'":
+                    current.append(values_text[i + 1])
+                    i += 2
+                    continue
+                in_quote = False
+            i += 1
             continue
-        if ch == "\\":
-            current.append(ch)
-            escape = True
-            continue
+
         if ch == "'":
             current.append(ch)
-            in_quote = not in_quote
+            in_quote = True
+            i += 1
             continue
-        if not in_quote and ch == "(" :
+        if ch == "(":
             depth += 1
             current.append(ch)
+            i += 1
             continue
-        if not in_quote and ch == ")":
+        if ch == ")":
             depth -= 1
             current.append(ch)
+            i += 1
             continue
         if not in_quote and depth == 0 and ch == ",":
             value = ''.join(current).strip()
             if value:
                 values.append(value)
             current = []
+            i += 1
             continue
         current.append(ch)
+        i += 1
+
     if current:
         value = ''.join(current).strip()
         if value:
@@ -177,58 +188,78 @@ def collect_create_tables() -> dict[str, list[tuple[str, str, bool]]]:
 
 def collect_inserts() -> dict[str, list[list]]:
     data: dict[str, list[list]] = {}
-    
+
     for sql_path in sorted(POST_DEPLOY_DIR.glob("*.Table.sql")):
         text = read_text(sql_path)
         text = text.replace("\r\n", "\n").replace("\r", "\n")
-        
-        # Find all lines starting with INSERT and collect full statements
+
         lines = text.splitlines()
         i = 0
         while i < len(lines):
             line = lines[i].strip()
-            if line.upper().startswith("INSERT"):
-                # Collect the full INSERT statement
-                stmt_lines = [line]
-                # Keep collecting until we find a complete VALUES (...) 
-                paren_depth = 0
-                found_values = False
-                j = i
-                
-                while j < len(lines):
-                    current_line = lines[j].strip()
-                    if j > i:
-                        stmt_lines.append(current_line)
-                    
-                    # Count parentheses
-                    for ch in current_line:
-                        if ch == '(':
-                            paren_depth += 1
-                        elif ch == ')':
-                            paren_depth -= 1
-                    
-                    # Check if we have VALUES and matching parens
-                    if 'VALUES' in current_line.upper():
-                        found_values = True
-                    
-                    if found_values and paren_depth == 0:
-                        break
-                    j += 1
-                
-                # Parse the complete statement
-                stmt = " ".join(stmt_lines)
-                match = re.search(r"INSERT\s+\[dbo\]\.\[([^\]]+)\].*?VALUES\s*\((.+?)\)\s*(?:GO)?$", stmt, re.IGNORECASE | re.DOTALL)
-                if match:
-                    table = match.group(1)
-                    values_text = match.group(2)
-                    values = split_value_list(values_text)
-                    parsed = [parse_value(v) for v in values]
-                    data.setdefault(table, []).append(parsed)
-                
-                i = j + 1
-            else:
+            if not line.upper().startswith("INSERT"):
                 i += 1
-    
+                continue
+
+            stmt_lines = [line]
+            paren_depth = 0
+            found_values = False
+            j = i
+            while j < len(lines):
+                current_line = lines[j].strip()
+                if j > i:
+                    stmt_lines.append(current_line)
+
+                for ch in current_line:
+                    if ch == "(":
+                        paren_depth += 1
+                    elif ch == ")":
+                        paren_depth -= 1
+
+                if "VALUES" in current_line.upper():
+                    found_values = True
+
+                if found_values and paren_depth == 0:
+                    break
+                j += 1
+
+            stmt = " ".join(stmt_lines)
+            match = re.search(r"INSERT\s+\[dbo\]\.\[([^\]]+)\]", stmt, re.IGNORECASE | re.DOTALL)
+            if match:
+                table = match.group(1)
+                values_match = re.search(r"VALUES\s*\(", stmt, re.IGNORECASE | re.DOTALL)
+                if values_match:
+                    start_idx = values_match.end() - 1
+                    depth = 1
+                    in_quote = False
+                    k = start_idx + 1
+                    while k < len(stmt):
+                        ch = stmt[k]
+                        if in_quote:
+                            if ch == "'":
+                                if k + 1 < len(stmt) and stmt[k + 1] == "'":
+                                    k += 2
+                                    continue
+                                in_quote = False
+                            k += 1
+                            continue
+
+                        if ch == "'":
+                            in_quote = True
+                        elif ch == "(":
+                            depth += 1
+                        elif ch == ")":
+                            depth -= 1
+                            if depth == 0:
+                                values_text = stmt[start_idx + 1:k]
+                                values = split_value_list(values_text)
+                                parsed = [parse_value(v) for v in values]
+                                data.setdefault(table, []).append(parsed)
+                                break
+                        k += 1
+
+            i = j + 1
+
     return data
 
 

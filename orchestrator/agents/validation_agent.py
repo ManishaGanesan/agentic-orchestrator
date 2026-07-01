@@ -1,9 +1,13 @@
 import sqlite3
+from pathlib import Path
 from typing import Dict, Any
 
 
 class ValidationAgent:
     def __init__(self, db_path: str):
+        db_file = Path(db_path)
+        if not db_file.exists():
+            raise FileNotFoundError(f"SQLite database file not found: {db_file}")
         self.conn = sqlite3.connect(db_path)
         self.cursor = self.conn.cursor()
 

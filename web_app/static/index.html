@@ -308,6 +308,12 @@
                 <p>Processing your files...</p>
             </div>
         </div>
+
+        <div class="card">
+            <h2 style="margin-bottom: 15px;">Agent Pipeline Progress</h2>
+            <div id="progressStatus" class="alert alert-info">Waiting for a run to start.</div>
+            <div id="progressSteps" class="jobs-list"></div>
+        </div>
     </div>
 
     <script>
@@ -319,6 +325,9 @@
         const loading = document.getElementById('loading');
         const uploadBtn = document.getElementById('uploadBtn');
         const alertContainer = document.getElementById('alertContainer');
+        const progressStatus = document.getElementById('progressStatus');
+        const progressSteps = document.getElementById('progressSteps');
+        let progressTimer = null;
 
         filesInput.addEventListener('change', (e) => {
             const files = Array.from(e.target.files);
@@ -370,7 +379,11 @@
 
                 // Step 2: Process uploaded files
                 const processResponse = await fetch(`${API_BASE}/api/process`, {
-                    method: 'POST'
+                    method: 'POST',
+                    body: new URLSearchParams({
+                        strategy: 'hybrid',
+                        use_cot: 'false'
+                    })
                 });
 
                 const processResult = await processResponse.json();
@@ -378,7 +391,10 @@
                 if (!processResponse.ok) {
                     throw new Error(processResult.detail || 'Processing failed');
                 }
-                showAlert('✅ Processing completed! Output JSON saved successfully.', 'success');
+
+                renderProgress(processResult.status || {status: 'running', message: 'Agent pipeline started.'});
+                startProgressPolling();
+                showAlert('✅ Processing started. Watch the progress panel for agent updates.', 'success');
 
             } catch (error) {
                 showAlert(`❌ Error: ${error.message}`, 'error');
@@ -404,6 +420,52 @@
 
         function clearAlerts() {
             alertContainer.innerHTML = '';
+        }
+
+        function renderProgress(state) {
+            const status = state?.status || 'idle';
+            const message = state?.message || 'Waiting for a run to start.';
+            const steps = state?.steps || [];
+            const statusClass = status === 'completed' ? 'alert-success' : status === 'failed' ? 'alert-error' : 'alert-info';
+
+            progressStatus.className = `alert ${statusClass}`;
+            progressStatus.innerHTML = `<strong>${status.toUpperCase()}</strong> — ${message}`;
+            progressSteps.innerHTML = '';
+
+            steps.forEach((step) => {
+                const item = document.createElement('div');
+                item.className = 'job-card';
+                item.innerHTML = `
+                    <div class="job-header">
+                        <strong>${step.step}</strong>
+                    </div>
+                    <div class="job-details">${step.message}</div>
+                `;
+                progressSteps.appendChild(item);
+            });
+        }
+
+        async function pollProgress() {
+            try {
+                const response = await fetch(`${API_BASE}/api/progress`);
+                const state = await response.json();
+                renderProgress(state);
+
+                if (state.status === 'completed' || state.status === 'failed') {
+                    clearInterval(progressTimer);
+                    progressTimer = null;
+                }
+            } catch (error) {
+                console.error('Progress polling failed', error);
+            }
+        }
+
+        function startProgressPolling() {
+            if (progressTimer) {
+                clearInterval(progressTimer);
+            }
+            pollProgress();
+            progressTimer = window.setInterval(pollProgress, 1000);
         }
     </script>
 </body>

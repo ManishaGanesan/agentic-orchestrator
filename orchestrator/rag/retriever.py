@@ -19,7 +19,12 @@ class AblationRetriever:
         results = {"logic_guides": [], "script_guides": [], "templates": [], "kt_docs": []}
         
         for section in results.keys():
-            docs = self.store.raw_documents.get(section, [])
+            # Retrieval now runs over the chunked corpus (not whole files) so that
+            # bm25_indices / dense_embeddings array positions line up correctly,
+            # and so top_n returns relevant passages rather than entire documents.
+            docs = self.store.chunks.get(section) if hasattr(self.store, "chunks") else None
+            if not docs:
+                docs = self.store.raw_documents.get(section, [])
             if not docs:
                 continue
                 

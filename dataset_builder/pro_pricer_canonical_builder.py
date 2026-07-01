@@ -371,8 +371,7 @@ class ProPricerCanonicalBuilder:
 
     def _read_sql_script(self, sql_file_path: str) -> Dict[str, Any]:
         raw_content = ""
-
-        #1. Read the file content first
+        # 1. Read the file content first (try utf-8, then fallback)
         try:
             with open(sql_file_path, "r", encoding="utf-8") as f:
                 raw_content = f.read()
@@ -380,35 +379,31 @@ class ProPricerCanonicalBuilder:
             with open(sql_file_path, "r", encoding="cp1252", errors="replace") as f:
                 raw_content = f.read()
 
-        #2. Process and format the statements line-by-line
-        try:
+        # Ensure we always have a value to return
+        formatted_content = raw_content
 
-            statements = raw_content.splitlines()
-            formatted_lines = []
-
-            for stmt in statements:
-                if stmt.strip(): #skip completely empty lines
-                    #2. Format the individual statement
-                    f_stmt = sqlparse.format(
-                        stmt,
-                        reindent=True,
-		                reindent_aligned=True,
-                        indent_width=4,
-                        keyword_case="upper",
-                        strip_comments=False,
-                        use_space_around_operators=True
-                    )
-                    # remove any trailing newlines sqlparse adds to individual statements
-                    formatted_lines.append(f_stmt.rstrip())
-
-        #3 Join them all back together with a clean line break
-            formatted_content = "\n".join(formatted_lines)
-        except Exception as ex:
+        # 2. Try to format the SQL using sqlparse when available. If sqlparse
+        # is not installed or formatting fails, fall back to the raw content.
+        if sqlparse is None:
+            self.logger.info("sqlparse not available; skipping SQL formatting for %s", sql_file_path)
+        else:
+            try:
+                # Format the whole SQL content at once (safer than line-by-line)
+                formatted_content = sqlparse.format(
+                    raw_content,
+                    reindent=True,
+                    indent_width=4,
+                    keyword_case="upper",
+                    strip_comments=False,
+                    use_space_around_operators=True,
+                ).strip()
+            except Exception as ex:
                 self.logger.warning(
                     "SQL formatting failed for %s. Using raw SQL. Error: %s",
                     sql_file_path,
                     str(ex),
                 )
+                formatted_content = raw_content
 
         return asdict(
             SqlScriptRecord(

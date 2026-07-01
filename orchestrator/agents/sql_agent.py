@@ -1,148 +1,162 @@
+"""
+orchestrator/agents/sql_agent.py
+"""
 import json
+import os
+import re
 from typing import Dict, List
-import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from llama_cpp import Llama
 
 
 class SqlAgent:
-    def __init__(self, model_path: str = "path/to/your/fine-tuned-slm"):
-        """
-        Initializes the local fine-tuned Small Language Model (SLM) for offline inference.
-        """
-        self.tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
-        self.model = AutoModelForCausalLM.from_pretrained(
-            model_path, 
-            torch_dtype=torch.float16, 
-            device_map="auto",
-            trust_remote_code=True
+    def __init__(self, model_path: str = "./models/Phi-3-mini-4k-instruct-q4.gguf"):
+        """CPU-optimized GGUF inference via llama.cpp bindings."""
+        n_threads = os.cpu_count() or 4
+        print(f"⚙️ Loading GGUF model from {model_path} using {n_threads} threads...", flush=True)
+
+        self.llm = Llama(
+            model_path=model_path,
+            n_ctx=4096,            # match your GGUF build's context window
+            n_threads=n_threads,
+            n_gpu_layers=0,        # set >0 if you build with Metal/CUDA support to offload layers
+            verbose=False,
+            chat_format="phi-3", 
         )
+        print("✅ Model loaded.", flush=True)
 
     def build_db_context_queries(self, canonical_json: Dict) -> List[str]:
-        """
-        PRESERVED EXACTLY FROM ORIGINAL:
-        Executes Steps 1 through 4 of your logic guide to resolve IDs and find existing rows.
-        """
         queries = []
-
-        # Step 1 from your logic guide:
-        # resolve pricer type / LUTPTID
         pricer_descr = canonical_json.get("pricer_type_description")
         if pricer_descr:
             safe_pricer = str(pricer_descr).replace("'", "''")
-            queries.append(
-                f"SELECT * FROM LUT_PricerType WHERE pricertypedescr = '{safe_pricer}';"
-            )
+            queries.append(f"SELECT * FROM LUT_PricerType WHERE pricertypedescr = '{safe_pricer}';")
         else:
-            queries.append(
-                "SELECT * FROM LUT_PricerType WHERE pricertypedescr LIKE '%Pro%';"
-            )
-
-        # Step 2 / Step 3: state_procedures
-        for sp in canonical_json.get("state_procedures", []):
-            state_acronym = sp.get("state_acronym")
-            eff_date = sp.get("effective_date")
-
-            if state_acronym and eff_date:
-                safe_state = str(state_acronym).replace("'", "''")
-                safe_date = str(eff_date).replace("'", "''")
-
-                queries.append(
-                    "SELECT * FROM LUT_PricerTypeAPRPro_State "
-                    f"WHERE state_id = '{safe_state}' "
-                    f"AND DATE(effdate) = DATE('{safe_date}');"
-                )
-
-            for proc in sp.get("procedures", []):
-                pcode = proc.get("pcode")
-                if pcode:
-                    safe_pcode = str(pcode).replace("'", "''")
-                    queries.append(
-                        "SELECT * FROM LUT_PricerTypeAPRPro_Procedure "
-                        f"WHERE PCode = '{safe_pcode}';"
-                    )
-
-        # Step 4: procedure_variables
-        for pv in canonical_json.get("procedure_variables", []):
-            pcode_info = pv.get("pcode", {})
-            if isinstance(pcode_info, dict):
-                pcode_val = pcode_info.get("value")
-            else:
-                pcode_val = pcode_info
-
-            if pcode_val:
-                safe_pcode = str(pcode_val).replace("'", "''")
-                queries.append(
-                    "SELECT * FROM LUT_PricerTypeAPRPro_Procedure "
-                    f"WHERE PCode = '{safe_pcode}';"
-                )
-
-            for var in pv.get("variables", []):
-                variable_name = var.get("variable_name")
-                if variable_name:
-                    safe_var = str(variable_name).replace("'", "''")
-                    queries.append(
-                        "SELECT * FROM LUT_PricerTypeVariable "
-                        f"WHERE VariableName = '{safe_var}';"
-                    )
-
+            queries.append("SELECT * FROM LUT_PricerType WHERE pricertypedescr LIKE '%Pro%';")
         return queries
 
-    def generate_sql(self, retrieved_context: Dict, db_context_results: Dict) -> str:
-        """
-        PRESERVED EXACTLY FROM ORIGINAL:
-        Enforces all 8 strict procedural and formatting rules using the local fine-tuned model.
-        """
-        system_prompt = """
-You are a SQL Server regulatory SQL generation agent.
+    def _build_safe_sql_fallback(self, fallback_text: str = "") -> str:
+        if fallback_text and fallback_text.strip():
+            sql_lines = []
+            for line in fallback_text.splitlines():
+                stripped = line.strip()
+                if not stripped:
+                    continue
+                if stripped.startswith(("--", "/*", "*/")):
+                    continue
+                if re.search(r"\b(SELECT|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP|MERGE|BEGIN|END|DECLARE|WITH|FROM|WHERE|VALUES|SET|JOIN|LEFT|RIGHT|INNER|OUTER|CASE|THEN|ELSE|GO|USE|IF|EXEC|RETURN|AND|OR|AS)\b", stripped.upper()):
+                    sql_lines.append(stripped)
+            if sql_lines:
+                return "\n".join(sql_lines[:20]).strip()
 
+        return "BEGIN TRANSACTION;\n-- No valid SQL generated by the model. Add the required statements here.\nCOMMIT TRANSACTION;"
+
+    def _sanitize_generated_sql(self, raw_text: str, fallback_text: str = "") -> str:
+        if not raw_text:
+            return self._build_safe_sql_fallback(fallback_text)
+
+        cleaned = raw_text.replace("\x00", "")
+        cleaned = cleaned.replace("```sql", "").replace("```", "")
+        cleaned = re.sub(r"<think[^>]*>.*?</think>", "", cleaned, flags=re.S | re.I)
+
+        sql_keywords = [
+            "SELECT", "INSERT", "UPDATE", "DELETE", "CREATE", "ALTER", "DROP", "MERGE",
+            "BEGIN", "END", "DECLARE", "WITH", "FROM", "WHERE", "VALUES", "SET", "JOIN",
+            "LEFT", "RIGHT", "INNER", "OUTER", "CASE", "THEN", "ELSE", "GO", "USE", "IF",
+            "EXEC", "RETURN", "AND", "OR", "AS"
+        ]
+        upper_text = cleaned.upper()
+        has_sql_keywords = any(keyword in upper_text for keyword in sql_keywords)
+
+        sql_lines = []
+        for line in cleaned.splitlines():
+            stripped = line.strip()
+            if not stripped:
+                continue
+            if stripped.startswith(("--", "/*", "*/")):
+                continue
+            if re.search(r"\b(SELECT|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP|MERGE|BEGIN|END|DECLARE|WITH|FROM|WHERE|VALUES|SET|JOIN|LEFT|RIGHT|INNER|OUTER|CASE|THEN|ELSE|GO|USE|IF|EXEC|RETURN|AND|OR|AS)\b", stripped.upper()):
+                sql_lines.append(stripped)
+            elif re.search(r"^\s*\[dbo\]|^\s*\w+\s*\(|^\s*\w+\s*\[", stripped):
+                sql_lines.append(stripped)
+
+        if sql_lines:
+            candidate = "\n".join(sql_lines).strip()
+            if len(candidate) >= 40:
+                return candidate
+
+        # If the response does not contain recognizable SQL structure, fall back to the known-safe template.
+        if fallback_text and fallback_text.strip():
+            if not has_sql_keywords:
+                return self._build_safe_sql_fallback(fallback_text)
+            if len(cleaned) < 40 and not re.search(r"\b(SELECT|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP|MERGE|BEGIN|END|DECLARE|WITH|FROM|WHERE|VALUES|SET|JOIN|LEFT|RIGHT|INNER|OUTER|CASE|THEN|ELSE|GO|USE|IF|EXEC|RETURN|AND|OR|AS)\b", cleaned.upper()):
+                return self._build_safe_sql_fallback(fallback_text)
+            if cleaned.lstrip().startswith(("/", "*", "-", "#")):
+                return self._build_safe_sql_fallback(fallback_text)
+
+        return cleaned.strip() or self._build_safe_sql_fallback(fallback_text)
+
+    def generate_sql(self, retrieved_context: Dict, db_context_results: Dict, script_guide_text: str, base_template_text: str, use_cot: bool = False) -> str:
+        system_prompt = """You are a SQL Server regulatory SQL generation agent.
 Strict rules:
 1. Canonical JSON is the primary source of truth.
 2. Logic guides define how to validate ADD vs UPDATE and how to plan steps.
 3. Script guides and templates define SQL style and ordering.
 4. DB context results resolve IDs and determine whether records already exist.
 5. Generate only SQL Server SQL.
-6. Return only executable SQL script.
+6. Return only executable SQL script statements inside Section 2.
 7. If an existing state is updated and procedure order must be replaced, delete old StateProcedure rows before inserting new ordered rows.
-8. If required context is missing, generate the safest valid SQL possible based on available context and keep script readable.
-"""
+8. If required context is missing, generate the safest valid SQL possible based on available context."""
 
-        user_prompt = f"""
-PROMPT CONTEXT:
-{retrieved_context["prompt_context"]}
+        if use_cot:
+            system_prompt += "\nStrict Requirement: Before writing any executable SQL code block, you MUST construct an isolated reasoning trace wrapped entirely inside an initial <thinking> and </thinking> XML block."
+        else:
+            system_prompt += "\nOutput ONLY executable SQL script statements directly. Do not include introductory notes, explanations, or thinking blocks."
+
+        def _cap_tokens(text: str, max_tokens: int) -> str:
+            token_ids = self.llm.tokenize(text.encode("utf-8"))
+            if len(token_ids) <= max_tokens:
+                return text
+            # decode with errors="ignore" to avoid corrupting a split multi-byte token
+            return self.llm.detokenize(token_ids[:max_tokens]).decode("utf-8", errors="ignore")
+
+        prompt_context = _cap_tokens(retrieved_context["prompt_context"], 2500)
+        script_guide_text = _cap_tokens(script_guide_text, 600)
+        base_template_text = _cap_tokens(base_template_text, 800)
+        db_context_str = _cap_tokens(json.dumps(db_context_results, indent=2), 500)
+
+        user_prompt = f"""PROMPT CONTEXT:
+{prompt_context}
 
 DB CONTEXT RESULTS:
-{json.dumps(db_context_results, indent=2)}
+{db_context_str}
+
+SCRIPT GUIDE FORMATTING RULES:
+{script_guide_text}
+
+TARGET SEGMENT COMMENT TO GENERATE UNDER:
+{base_template_text}
 
 TASK:
-Generate the final SQL script.
-"""
+Generate only the SQL script modifications belonging to Section 2. Apply formatting hierarchy ordering (State -> Procedure -> ProcedureVariable -> StateProcedure). Return ONLY the clean, executable statements."""
 
-        # Structuring the inputs into the exact chat template your local model expects
-        messages = [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt}
-        ]
-        
-        # Apply the model-specific token formatting safely
-        input_ids = self.tokenizer.apply_chat_template(
-            messages, 
-            add_generation_prompt=True, 
-            return_tensors="pt"
-        ).to(self.model.device)
-
-        # Deterministic generation for rigorous testing
-        with torch.no_grad():
-            output_ids = self.model.generate(
-                input_ids,
-                max_new_tokens=2048,  # Increased room for comprehensive multi-step scripts
-                temperature=0.1,      # Low temperature ensures the model adheres strictly to the rules
-                do_sample=False
-            )
-            
-        # Decode and isolate only the freshly generated tokens
-        generated_text = self.tokenizer.decode(
-            output_ids[0][input_ids.shape[1]:], 
-            skip_special_tokens=True
+        # Build the Phi-3 instruct prompt manually — avoids depending on
+        # llama-cpp-python's chat_format registry entirely.
+        full_prompt = (
+            f"<|system|>\n{system_prompt}<|end|>\n"
+            f"<|user|>\n{user_prompt}<|end|>\n"
+            f"<|assistant|>\n"
         )
-        
-        return generated_text
+
+        print("🧮 Starting generation...", flush=True)
+        result = self.llm.create_completion(
+            prompt=full_prompt,
+            max_tokens=512,
+            temperature=0.0,
+            stop=["<|end|>", "<|user|>"],
+        )
+        print("✅ Generation complete.", flush=True)
+
+        raw_output = result["choices"][0]["text"].strip()
+        return self._sanitize_generated_sql(raw_output, fallback_text=base_template_text)
+    
+

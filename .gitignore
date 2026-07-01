@@ -5,6 +5,8 @@ venv/
 output/
 .venv
 .vs/
+models/
+*.gguf
 
 # Web application directories
 web_app/uploads/

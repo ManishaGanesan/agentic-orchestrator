@@ -19,7 +19,7 @@ This repo has 3 major components:
 Use the Windows Python launcher py to build a venv
 1. create venv using the system Python (py chooses an installed Python 3)
     - py -3 -m venv .venv
-    - python3 -m venv venv (mac)
+    - python3 -m venv .venv (mac)
 2. activate
     - .\.venv\Scripts\Activate.ps1
     - source venv/bin/activate (macos)
@@ -44,6 +44,7 @@ Use the Windows Python launcher py to build a venv
 
 ## Web Application run
 1. **Trigger ps in venv**: .\web_app\start.ps1
+        macos - python web_app/main.py
 2. **Open in browser**: http://localhost:8000
 3. **Upload and process**:
    - Enter previous/new versions
