@@ -7,7 +7,7 @@ output/
 .vs/
 models/
 *.gguf
-
+llama.cpp/
 # Web application directories
 web_app/uploads/
 web_app/outputs/

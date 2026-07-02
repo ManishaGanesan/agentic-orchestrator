@@ -52,3 +52,7 @@ Use the Windows Python launcher py to build a venv
    - Click "Upload & Process"
    - Verify Output.json file under input_excels folder
 📚 See [web_app/README.md](web_app/README.md) for detailed documentation.
+
+# LORA run
+1. export PYTORCH_ENABLE_MPS_FALLBACK=1  - clear incomplete mps shards
+2. python orchestrator/research/train_lora.py     
