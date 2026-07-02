@@ -1,6 +1,8 @@
 """
 main.py (Root Level)
 The root entry point for the orchestrator web app.
+check for flags like --pipeline or --strategy
+Run the pipeline once if --pipeline is set, otherwise start the web app.
 """
 import argparse
 import sys

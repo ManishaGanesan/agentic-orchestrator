@@ -1,11 +1,17 @@
 """
 orchestrator/runner.py
+Brain of pipeline - step by step order of execultion of multiagents
 """
 import json
 import os
 import re
 from pathlib import Path
 from typing import Optional, Callable, Dict, Any
+
+from orchestrator.agents.context_agent import ContextAgent
+from orchestrator.agents.sql_agent import SqlAgent
+from orchestrator.agents.validation_agent import ValidationAgent
+from orchestrator.agents.retriever_agent import RetrieverAgent
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 
@@ -25,14 +31,12 @@ def execute_research_ablation_pipeline(
     progress_callback: Optional[Callable[[str, str], None]] = None,
 ):
     input_json_path = ROOT_DIR / "output_jsons" / "output.json"
-    if not input_json_path.exists():
-        input_json_path = ROOT_DIR / "canonical_output.json"
-
-    _emit_progress(progress_callback, "started", f"Pipeline triggered with strategy {strategy.upper()}")
+    _emit_progress(progress_callback, "started", f"Pipeline triggered with strategy {strategy.upper()} and use_cot={use_cot}.")
 
     if not input_json_path.exists():
         _emit_progress(progress_callback, "failed", "Input canonical payload JSON file not found.")
         return
+    
 
     with open(input_json_path, "r", encoding="utf-8") as f:
         web_app_canonical_json = json.load(f)
@@ -40,14 +44,10 @@ def execute_research_ablation_pipeline(
     MODEL_PATH = str(ROOT_DIR / "models" / "Phi-3-mini-4k-instruct-q4.gguf")
     DATABASE_PATH = str(ROOT_DIR / "database" / "rate_manager.sqlite")
 
-    from orchestrator.agents.context_agent import ContextAgent
-    from orchestrator.agents.sql_agent import SqlAgent
-    from orchestrator.agents.validation_agent import ValidationAgent
-    from orchestrator.agents.retriever_agent import RetrieverAgent
-
     context_agent = ContextAgent()
     sql_agent = SqlAgent(model_path=MODEL_PATH)
     
+    # verify db existence
     try: 
         validation_agent = ValidationAgent(db_path=DATABASE_PATH)
     except Exception:
@@ -58,19 +58,13 @@ def execute_research_ablation_pipeline(
     # 1. Standardize and thin the active frontend input payload
     task = context_agent.build_task(web_app_canonical_json)
     
-    # 2. Extract configuration parameters directly from the clean dynamic object
-    state_procedures_list = task["canonical_json"].get("state_procedures", [])
-    if state_procedures_list:
-        active_state = state_procedures_list[0]
-        live_state_id = active_state.get("state_id", "UNKNOWN")
-        live_eff_date = active_state.get("effective_date", "1900-01-01")
-        pricer_descr = active_state.get("state_name", "UNKNOWN")
-        procedures = active_state.get("procedures", [])
-    else:
-        live_state_id = "UNKNOWN"
-        live_eff_date = "1900-01-01"
-        pricer_descr = "UNKNOWN"
-        procedures = []
+    # 2. Extract configuration parameters cleanly from the Context Agent's metadata broker
+    metadata = task.get("metadata", {})
+    
+    live_state_id = metadata.get("live_state_id", "UNKNOWN")
+    live_eff_date = metadata.get("live_eff_date", "1900-01-01")
+    pricer_descr = metadata.get("pricer_descr", "UNKNOWN")
+    procedures = metadata.get("procedures", [])
 
     # 3. Dynamic RAG retrieval execution across active ablation strategies
     _emit_progress(progress_callback, "retrieval", f"Querying Vector Store via strategy: {strategy.upper()}")
@@ -78,31 +72,39 @@ def execute_research_ablation_pipeline(
     retrieved_context = retriever_agent.get_context(task, strategy=strategy)
 
     # ================= LOG A: CONTEXT RETRIEVED TELEMETRY =================
-    print("\n================ [LOG A: CONTEXT RETRIEVED] ================")
+    print("\n================ [LOG A: CONTEXT AGENT ] ================")
+    # print(f"Context agent extracted: {task}")
+    print(f"Retrieved context from RAG engine: {retrieved_context}")
+    print("=========================================================\n")
     print(f"Strategy: {strategy.upper()} | Dynamic RAG Knowledge Base Synced Successfully.")
     print("============================================================\n")
 
     _emit_progress(progress_callback, "schema", "Resolving dynamic relational metadata indicators")
     
     # Construct exact schema matrix mapping from the input payload parameters
-    mock_db_results = {
-        "LUT_PricerType": [{"pricertypetid": 82, "pricertypedescr": pricer_descr}],
-        "LUT_PricerTypeAPRPro_State": [{"LUTSID": 82, "state_id": live_state_id, "effdate": live_eff_date.split(" ")[0]}],
+    db_context_results = {
+        "active_metadata": {
+            "state_id": metadata.get("live_state_id", "UNKNOWN"),
+            "effective_date": metadata.get("live_eff_date", "1900-01-01"),
+            "pricer_classification": metadata.get("pricer_descr", "UNKNOWN")
+        },
+        "total_procedures_count": len(procedures)
     }
-
-    # ================= LOG B: CANONICAL MATCH LOGIC =================
+   # ================= LOG B: CANONICAL MATCH LOGIC =================
     print("\n================ [LOG B: CANONICAL MATCHES FOUND] ================")
-    print(f"Pricer Class: {pricer_descr} | State: {live_state_id} | Procedures Count: {len(procedures)}")
+    print(f"Pricer Class: {db_context_results['active_metadata']['pricer_classification']} | "
+          f"State: {db_context_results['active_metadata']['state_id']} | "
+          f"Procedures Count: {db_context_results['total_procedures_count']}")
     print("==================================================================\n")
 
     # Dynamic file guides mapping
     script_guide_path = ROOT_DIR / "orchestrator" / "knowledge" / "Script_guide.txt"
     script_guide_text = safe_read_file(script_guide_path)
-    base_template_text = f"-- Dynamic Migration Script for {pricer_descr} State {live_state_id}"
+    base_template_text = f"-- Dynamic Migration Script for {db_context_results['active_metadata']['pricer_classification']} State {db_context_results['active_metadata']['state_id']}"
 
     # ================= LOG C: FINAL COMPILED PROMPT SUMMARY =================
     print("\n================ [LOG C: FINAL PROMPT SENT TO SLM] ================")
-    print(f"Injected Structural Lookup Matrix for Target Model Inference Map:\n{json.dumps(mock_db_results)}")
+    print(f"Injected Structural Lookup Matrix for Target Model Inference Map:\n{json.dumps(db_context_results, indent=2)}")
     print("===================================================================\n")
 
     # 4. Fail-safe try/catch block to secure the progress connection stream
@@ -111,7 +113,7 @@ def execute_research_ablation_pipeline(
         
         final_templated_sql = sql_agent.generate_sql(
             retrieved_context=retrieved_context,
-            db_context_results=mock_db_results,
+            db_context_results=db_context_results,
             script_guide_text=script_guide_text,
             base_template_text=base_template_text,
             use_cot=use_cot,
@@ -151,4 +153,3 @@ def execute_research_ablation_pipeline(
         raise pipeline_error
     
 
-    

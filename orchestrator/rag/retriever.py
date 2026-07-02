@@ -16,8 +16,24 @@ class AblationRetriever:
         return sorted(rrf_scores.items(), key=lambda x: x[1], reverse=True)
 
     def retrieve(self, query_text: str, strategy: str = "hybrid", top_n: int = 2) -> Dict[str, List[Dict]]:
-        results = {"logic_guides": [], "script_guides": [], "templates": [], "kt_docs": []}
+        # ==========================================
+        # TEMPORARY DIAGNOSTIC PRINTS (ADD HERE)
+        # ==========================================
+        print("\n=== RAG STORE DIAGNOSTIC BOOT ===")
+        if hasattr(self.store, "chunks") and isinstance(self.store.chunks, dict):
+            print("Keys found in store.chunks:", list(self.store.chunks.keys()))
+        else:
+            print("store.chunks is missing or not a dictionary.")
+
+        if hasattr(self.store, "raw_documents") and isinstance(self.store.raw_documents, dict):
+            print("Keys found in store.raw_documents:", list(self.store.raw_documents.keys()))
         
+        if hasattr(self.store, "dense_embeddings") and isinstance(self.store.dense_embeddings, dict):
+            print("Keys found in store.dense_embeddings:", list(self.store.dense_embeddings.keys()))
+        print("=================================\n")
+        # ==========================================
+        results = {"logic_guides": [], "script_guides": [], "canonical_json": []}
+
         for section in results.keys():
             # Retrieval now runs over the chunked corpus (not whole files) so that
             # bm25_indices / dense_embeddings array positions line up correctly,
