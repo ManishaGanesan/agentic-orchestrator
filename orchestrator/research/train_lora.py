@@ -5,6 +5,7 @@ import os
 import json
 import sys
 import subprocess
+import gc
 from pathlib import Path
 import torch
 from datasets import Dataset
@@ -18,7 +19,7 @@ def load_historical_canonical_dataset():
     Dynamically builds your training dataset using your real historical canonical
     JSON payloads and matching validated target SQL migration blocks.
     """
-    json_path = ROOT_DIR / "output_json" / "canonical_output.json"
+    json_path = ROOT_DIR / "output_jsons" / "canonical_output.json"
     sql_path = ROOT_DIR / "orchestrator" / "knowledge" / "V191100-v191101_RateManager.sql"
     
     if not json_path.exists() or not sql_path.exists():
@@ -42,7 +43,8 @@ def load_historical_canonical_dataset():
 
 def run_lora_alignment():
     model_id = "microsoft/Phi-3-mini-4k-instruct"
-    tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=False) # ◄--- CHANGE TO FALSE    tokenizer.pad_token = tokenizer.eos_token
+    tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=False)
+    tokenizer.pad_token = tokenizer.eos_token
     
     peft_config = LoraConfig(
         r=8,
@@ -56,11 +58,12 @@ def run_lora_alignment():
     print("[RUNNING] Loading base floating-point parameters...")
     model = AutoModelForCausalLM.from_pretrained(
         model_id,
-        trust_remote_code=False,       # ◄--- CHANGE TO FALSE TO BYPASS BROKEN HF CACHE SCRIPT
-        torch_dtype=torch.bfloat16,
-        device_map="auto",
-        attn_implementation="eager"    # ◄--- FORCE STABLE NATIVE EAGER ATTENTION
+        trust_remote_code=False,       
+        torch_dtype=torch.float32,     
+        device_map={"": "cpu"},        
+        attn_implementation="eager"    
     )
+    
     peft_model = get_peft_model(model, peft_config)
     
     dataset = load_historical_canonical_dataset()
@@ -74,10 +77,11 @@ def run_lora_alignment():
             gradient_accumulation_steps=4,
             learning_rate=2e-4,
             num_train_epochs=5,
-            bf16=True,             # ◄--- CHANGE FROM fp16=True TO bf16=True FOR MPS
+            fp16=False,            
+            bf16=False,            
             logging_steps=1,
             save_strategy="no",
-            use_cpu=False          # Ensure it doesn't default-fallback to CPU
+            use_cpu=True           
         ),
         train_dataset=dataset,
         data_collator=lambda data: {
@@ -98,10 +102,24 @@ def run_lora_alignment():
     # ================= AUTOMATED INFRASTRUCTURE WIRING BLOCK =================
     print("\n[WIRING] Initiating neural parameter weight export...")
     
-    # 1. Merge weights back into single baseline model architecture configuration
+    # Explicitly clear up VRAM/RAM allocation footprints before loading the merge base
+    del peft_model
+    del model
+    gc.collect()
+    if torch.backends.mps.is_available():
+        torch.mps.empty_cache()
+
+    # Reload base model using safe native implementations entirely on CPU to prevent swapping spikes
+    print("[WIRING] Loading base model for unified weight synthesis...")
     base_model_reload = AutoModelForCausalLM.from_pretrained(
-        model_id, torch_dtype=torch.float16, device_map="cpu", trust_remote_code=True
+        model_id, 
+        trust_remote_code=False,        
+        torch_dtype=torch.bfloat16,
+        device_map="cpu",               
+        attn_implementation="eager"     
     )
+    
+    print("[WIRING] Blending LoRA matrix tensors back into base architecture layers...")
     merged_model = PeftModel.from_pretrained(base_model_reload, str(adapter_path))
     merged_model = merged_model.merge_and_unload()
     
@@ -110,14 +128,18 @@ def run_lora_alignment():
     tokenizer.save_pretrained(str(merged_hf_path))
     print(f"[SUCCESS] Merged weights exported to HF format at: {merged_hf_path}")
 
-    # 4. Programmatically compile the output into the final GGUF inference destination folder path
+    # Clean up reloading memory leaks
+    del merged_model
+    del base_model_reload
+    gc.collect()
+
+    # ================= ZERO-DEPENDENCY PYTHON QUANTIZATION SYSTEM =================
     target_gguf_dir = ROOT_DIR / "models"
     target_gguf_dir.mkdir(parents=True, exist_ok=True)
     output_gguf_file = target_gguf_dir / "Phi-3-mini-4k-instruct-q4.gguf"
 
-    print("[WIRING] Invoking llama.cpp compilation script tools to construct binary...")
+    print("\n[WIRING] Converting and Compressing directly via Python wrapper tooling...")
     
-    # Comprehensive check for llama.cpp conversion script variations
     possible_scripts = [
         ROOT_DIR / "llama.cpp" / "convert_hf_to_gguf.py",
         ROOT_DIR / "llama.cpp" / "convert.py",
@@ -135,19 +157,14 @@ def run_lora_alignment():
         print("Please execute: git clone https://github.com/ggerganov/llama.cpp")
         return
 
-    quant_command = [
-        sys.executable,
-        str(convert_script),
-        str(merged_hf_path),
-        "--outfile", str(output_gguf_file),
-        "--outtype", "f16"
-    ]
+    # Trigger conversion and compress directly into a crisp 8-bit footprint natively via Python
+    # This completely completely eliminates any reliance on a missing 'llama-quantize' binary!
+    subprocess.run([
+        sys.executable, str(convert_script), str(merged_hf_path),
+        "--outfile", str(output_gguf_file), "--outtype", "q8_0"
+    ], check=True)
     
-    try:
-        subprocess.run(quant_command, check=True)
-        print(f"\n[PIPELINE READY] Successfully compiled fine-tuned weights! Binary located at: {output_gguf_file}")
-    except Exception as conversion_error:
-        print(f"\n[CRITICAL BUILD ERROR] Quantitative compilation script failed: {str(conversion_error)}")
+    print(f"\n[PIPELINE READY] Successfully compiled fast 8-bit GGUF model at: {output_gguf_file}")
+
 if __name__ == "__main__":
     run_lora_alignment()
-

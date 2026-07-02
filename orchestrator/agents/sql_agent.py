@@ -14,12 +14,12 @@ class SqlAgent:
         # Configure advanced memory flags for unquantized models on limited RAM hardware
         self.llm = Llama(
             model_path=model_path,
-            n_ctx=12288,           # ◄--- BUMP THIS TO 12288 TO SAFELY FIT YOUR 9520 TOKENS
-            n_batch=256,           # ◄--- LOWER BATCH SIZE TO KEEPS INGESTION RAM SPIKES LOW
+            n_ctx=16384,           # ◄--- BUMP THIS TO 12288 TO SAFELY FIT YOUR 9520 TOKENS
+            n_batch=512,           # ◄--- LOWER BATCH SIZE TO KEEPS INGESTION RAM SPIKES LOW
             n_threads=n_threads,
-            n_gpu_layers=-1,       
             verbose=True,
             chat_format="phi-3",
+            n_gpu_layers=-1 ,# Metal Acceleration ON
             # Keep these tight 8-bit cache flags active to safeguard your RAM
             type_k=1,              
             type_v=1,              
