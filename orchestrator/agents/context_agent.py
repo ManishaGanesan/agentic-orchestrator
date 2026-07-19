@@ -79,8 +79,8 @@ class ContextAgent:
             f"Target System Intent: {base_request} (Tracking User Story: {story_id}).\n\n"
             f"[DATA MODIFICATION INSTRUCTIONS]\n"
             f"{compiled_modifications}\n\n"
-            f"Cross-reference this extracted scope with the operational rules and historical syntax blueprints provided by the retriever. "
-            f"Synthesize standard compliance T-SQL update statements encapsulated within an isolated database transaction block."
+            f"Execute the migration by outputting the specific compliant T-SQL statement blocks matching the active target rows. "
+            f"Do not truncate or emit placeholder loops."
         )
 
         # FIX 3: Return the preserved global variables safely

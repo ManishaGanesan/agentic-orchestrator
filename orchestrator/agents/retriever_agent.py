@@ -6,7 +6,7 @@ class RetrieverAgent:
     def __init__(self, knowledge_path: str = None):
         self.rag = RagEngine(knowledge_path)
 
-    def get_context(self, task: Dict, strategy: str = "hybrid") -> Dict:
+    def get_context(self, task: Dict, strategy: str = "hybrid", sql_agent=None) -> Dict:
         user_request = task["user_request"]
         canonical_json = task["canonical_json"]
         metadata = task.get("metadata", {}) 
@@ -22,7 +22,8 @@ class RetrieverAgent:
         prompt_context = self.rag.build_prompt_context(
             query=search_query, 
             active_run_json=canonical_json, 
-            strategy=strategy
+            strategy=strategy,
+            sql_agent=sql_agent
         )
 
         # 4. Return everything back to runner.py, maintaining pipeline consistency

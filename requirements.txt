@@ -1,6 +1,7 @@
 # Data Processing & Excel utilities
 pandas>=2.2.0
 openpyxl>=3.1.0
+sqlparse>=0.4.3
 
 # Web Application (FastAPI)
 fastapi>=0.104.0

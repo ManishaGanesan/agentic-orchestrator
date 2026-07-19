@@ -136,7 +136,7 @@ def run_lora_alignment():
     # ================= ZERO-DEPENDENCY PYTHON QUANTIZATION SYSTEM =================
     target_gguf_dir = ROOT_DIR / "models"
     target_gguf_dir.mkdir(parents=True, exist_ok=True)
-    output_gguf_file = target_gguf_dir / "Phi-3-mini-4k-instruct-q4.gguf"
+    output_gguf_file = target_gguf_dir / "Phi-3-mini-4k-instruct-v0.gguf"
 
     print("\n[WIRING] Converting and Compressing directly via Python wrapper tooling...")
     
