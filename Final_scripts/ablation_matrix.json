@@ -1,7 +1,0 @@
-{
-  "hybrid": {
-    "passed_validation": false,
-    "error_caught": "near \"documents\": syntax error",
-    "total_procedures_processed": 29
-  }
-}
